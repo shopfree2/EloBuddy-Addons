@@ -7,7 +7,7 @@ using EloBuddy;
 using EloBuddy.SDK;
 using SharpDX;
 
-namespace JinxBuddy
+namespace UBZinx
 {
     static class UltimateHandler
     {
@@ -22,7 +22,7 @@ namespace JinxBuddy
         public static float RDamage(AIHeroClient target)
         {
             if (!Program.R.IsLearned) return 0;
-            var level = Program.R.Level - 1;
+            var level = Program.R.Level;
 
             if (target.Distance(_Player) < 1350)
             {

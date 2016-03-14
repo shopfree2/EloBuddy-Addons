@@ -11,7 +11,7 @@ using EloBuddy.SDK.Menu.Values;
 using EloBuddy.SDK.Rendering;
 using SharpDX;
 
-namespace JinxBuddy
+namespace UBZinx
 {
     internal class Program
     {
@@ -25,7 +25,7 @@ namespace JinxBuddy
         public static Spell.Skillshot E = new Spell.Skillshot(SpellSlot.E, 900, SkillShotType.Circular, 1200, 1750, 1);
         public static Spell.Skillshot R = new Spell.Skillshot(SpellSlot.R, 3000, SkillShotType.Linear, 600, 1700, 140);
 
-        public static Menu Menu, ComboMenu, HarassMenu, FarmMenu, MiscMenu, DrawMenu;
+        public static Menu Menu, ComboMenu, HarassMenu, FarmMenu, MiscMenu, KillStealMenu, DrawMenu;
 
         private static void Main(string[] args)
         {
@@ -69,10 +69,17 @@ namespace JinxBuddy
             MiscMenu.Add("interruptor", new CheckBox("Interruptor E"));
             MiscMenu.Add("CCE", new CheckBox("E trên CC của đồng minh"));
 
+            KillStealMenu= Menu.AddSubMenu("KillSteal", "KillStealZinx");
+            KillStealMenu.AddGroupLabel("KillSteal");
+            KillStealMenu.Add("useQKS", new CheckBox("Dùng Rocket để KS"));
+            KillStealMenu.Add("useWKS", new CheckBox("Dùng W để KS"));
+            KillStealMenu.Add("useRKS", new CheckBox("Dùng R để KS"));
+
+
             DrawMenu = Menu.AddSubMenu("Drawing Settings");
-            DrawMenu.Add("drawRange", new CheckBox("Draw Tầm tấn công của súng khác"));
-            DrawMenu.Add("drawW", new CheckBox("Draw W"));
-            DrawMenu.Add("drawE", new CheckBox("Draw E"));
+            DrawMenu.Add("drawRange", new CheckBox("Draw Tầm tấn công của súng khác", false));
+            DrawMenu.Add("drawW", new CheckBox("Draw W", false));
+            DrawMenu.Add("drawE", new CheckBox("Draw E", false));
 
             Game.OnTick += Game_OnTick;
             Gapcloser.OnGapcloser += Events.Gapcloser_OnGapCloser;
@@ -88,11 +95,11 @@ namespace JinxBuddy
             }
             if (DrawMenu["drawW"].Cast<CheckBox>().CurrentValue)
             {
-                Circle.Draw(W.IsReady() ? Color.HotPink : Color.DarkRed, W.Range, Player.Instance.Position);
+                Circle.Draw(W.IsReady() ? Color.Cyan : Color.DarkRed, W.Range, Player.Instance.Position);
             }
             if (DrawMenu["drawE"].Cast<CheckBox>().CurrentValue)
             {
-                Circle.Draw(W.IsReady() ? Color.HotPink : Color.DarkRed, E.Range, Player.Instance.Position);
+                Circle.Draw(E.IsReady() ? Color.Yellow : Color.DarkRed, E.Range, Player.Instance.Position);
             }
         }
 
@@ -119,7 +126,7 @@ namespace JinxBuddy
             {
                 foreach (var enemy in EntityManager.Heroes.Enemies)
                 {
-                    if (enemy.Distance(Player.Instance) < E.Range &&
+                    if (enemy.Distance(Player.Instance) <= E.Range &&
                         (enemy.HasBuffOfType(BuffType.Stun)
                          || enemy.HasBuffOfType(BuffType.Snare)
                          || enemy.HasBuffOfType(BuffType.Suppression)))
@@ -274,13 +281,13 @@ namespace JinxBuddy
                 // W/R KS
                 var wPred = W.GetPrediction(rtarget);
 
-                if (ComboMenu["useWCombo"].Cast<CheckBox>().CurrentValue &&
+                if (KillStealMenu["useWKS"].Cast<CheckBox>().CurrentValue &&
                     wPred.HitChance >= HitChance.Medium && W.IsReady() && rtarget.IsValidTarget(W.Range) &&
                     Damages.WDamage(target) >= rtarget.Health)
                 {
                     W.Cast(rtarget);
                 }
-                else if (ComboMenu["useRCombo"].Cast<CheckBox>().CurrentValue && rtarget != null &&
+                else if (KillStealMenu["useRKS"].Cast<CheckBox>().CurrentValue && rtarget != null &&
                          rtarget.Distance(Player.Instance) > Events.MinigunRange(target) + Events.FishBonesBonus &&
                          rtarget.IsKillableByR())
                 {

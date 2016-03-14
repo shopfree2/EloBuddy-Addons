@@ -10,7 +10,7 @@ using EloBuddy.SDK.Events;
 using EloBuddy.SDK.Menu.Values;
 using SharpDX;
 
-namespace JinxBuddy
+namespace UBZinx
 {
     internal class Events
     {
@@ -21,7 +21,7 @@ namespace JinxBuddy
 
         public static float FishBonesBonus
         {
-            get { return 75f + 25f*Program.Q.Level; }
+            get { return 50f + 25f*Program.Q.Level; }
         }
 
         public static float MinigunRange(Obj_AI_Base target = null)
@@ -31,7 +31,7 @@ namespace JinxBuddy
 
         public static bool FishBonesActive
         {
-            get { return _Player.AttackRange > 525; }
+            get { return _Player.AttackRange >= 600; }
         }
 
         public const int AoeRadius = 200;
