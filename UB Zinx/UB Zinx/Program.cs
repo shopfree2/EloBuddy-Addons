@@ -43,7 +43,7 @@ namespace UBZinx
             Menu.AddSeparator();
 
             ComboMenu = Menu.AddSubMenu("Combo", "ComboZinx");
-            ComboMenu.AddGroupLabel("Cài đặt Combo");
+            ComboMenu.AddGroupLabel("Combo Settings");
             ComboMenu.Add("useQCombo", new CheckBox("Dùng Q"));
             ComboMenu.Add("useQSplash", new CheckBox("Đổi Q trong combo"));
             ComboMenu.Add("useWCombo", new CheckBox("Dùng W"));
@@ -56,7 +56,7 @@ namespace UBZinx
             HarassMenu.Add("useWHarass", new CheckBox("Dùng W"));
 
             FarmMenu = Menu.AddSubMenu("Farm", "FarmZinx");
-            FarmMenu.AddGroupLabel("Cài đặt Farm");
+            FarmMenu.AddGroupLabel("Farm Settings");
             FarmMenu.AddLabel("LaneClear");
             FarmMenu.Add("useQFarm", new CheckBox("Use Q"));
             FarmMenu.Add("disableRocketsWC", new CheckBox("Không dùng tên lửa (Chỉ dùng súng nhỏ)", false));
@@ -76,7 +76,7 @@ namespace UBZinx
             KillStealMenu.Add("useRKS", new CheckBox("Dùng R để KS"));
 
 
-            DrawMenu = Menu.AddSubMenu("Cài đặt Drawing");
+            DrawMenu = Menu.AddSubMenu("Drawing Settings");
             DrawMenu.Add("drawRange", new CheckBox("Draw Tầm tấn công của súng khác", false));
             DrawMenu.Add("drawW", new CheckBox("Draw W", false));
             DrawMenu.Add("drawE", new CheckBox("Draw E", false));
