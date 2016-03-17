@@ -77,6 +77,7 @@ namespace UBZinx
 
 
             DrawMenu = Menu.AddSubMenu("Drawing Settings");
+            DrawMenu.AddGroupLabel("Drawing Settings");
             DrawMenu.Add("drawRange", new CheckBox("Draw Tầm tấn công của súng khác", false));
             DrawMenu.Add("drawW", new CheckBox("Draw W", false));
             DrawMenu.Add("drawE", new CheckBox("Draw E", false));
