@@ -38,7 +38,7 @@ namespace UBZinx
 
             Menu = MainMenu.AddMenu("UB Zinx", "UBZinx");
             Menu.AddGroupLabel("UB Zinx");
-            Menu.AddLabel("Made by the UB");
+            Menu.AddLabel("Made by UB");
             Menu.AddLabel("Dattenosa");
             Menu.AddSeparator();
 
@@ -129,6 +129,7 @@ namespace UBZinx
                 {
                     if (enemy.Distance(Player.Instance) <= E.Range &&
                         (enemy.HasBuffOfType(BuffType.Stun)
+                         || enemy.HasBuffOfType(BuffType.Knockup)
                          || enemy.HasBuffOfType(BuffType.Snare)
                          || enemy.HasBuffOfType(BuffType.Suppression)))
                     {
