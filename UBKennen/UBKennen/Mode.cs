@@ -1,0 +1,258 @@
+﻿using System;
+using System.Linq;
+using EloBuddy;
+using EloBuddy.SDK;
+using EloBuddy.SDK.Constants;
+using EloBuddy.SDK.Enumerations;
+using EloBuddy.SDK.Events;
+using EloBuddy.SDK.Menu;
+using EloBuddy.SDK.Menu.Values;
+using EloBuddy.SDK.Rendering;
+using SharpDX;
+
+
+namespace UBKennen
+{
+    class Mode
+    {
+        private static Obj_AI_Base GetEnemy(float range, GameObjectType t)
+        {
+            switch (t)
+            {
+                case GameObjectType.AIHeroClient:
+                    return EntityManager.Heroes.Enemies.OrderBy(a => a.Health).FirstOrDefault(
+                        a => a.Distance(Player.Instance) < range && !a.IsDead && !a.IsInvulnerable);
+                default:
+                    return EntityManager.MinionsAndMonsters.EnemyMinions.OrderBy(a => a.Health).FirstOrDefault(
+                        a => a.Distance(Player.Instance) < range && !a.IsDead && !a.IsInvulnerable);
+            }
+        }
+        //Combo
+        public static void Combo()
+        {          
+            if (Config.ComboMenu["useQCombo"].Cast<CheckBox>().CurrentValue
+                && Spells.Q.IsReady()
+                && !Player.Instance.IsDashing())
+            {
+                var target = TargetSelector.GetTarget(Spells.Q.Range, DamageType.Magical);
+                if (target != null && target.IsValidTarget())
+                {
+                    Spells.Q.Cast(target);
+                }
+            }
+
+            if (Config.ComboMenu["useWCombo"].Cast<CheckBox>().CurrentValue
+                 && Spells.W.IsReady())
+            {
+                var intTarget = TargetSelector.GetTarget(Spells.W.Range, DamageType.Magical);
+                if (intTarget.CountEnemiesInRange(800) >= Config.ComboMenu["WhitCombo"].Cast<Slider>().CurrentValue)
+                {
+                    Spells.W.Cast();
+                }
+            }
+            if (Config.ComboMenu["useECombo"].Cast<CheckBox>().CurrentValue
+                 && Spells.E.IsReady())
+            {
+                Spells.E.Cast();
+            }
+
+            if (Config.ComboMenu["useRCombo"].Cast<CheckBox>().CurrentValue
+                      && Spells.R.IsReady())
+            {
+                var target = TargetSelector.GetTarget(Spells.R.Range, DamageType.Magical);
+                if (target.CountEnemiesInRange(550) >= Config.ComboMenu["RhitCombo"].Cast<Slider>().CurrentValue)
+                {
+                    Spells.R.Cast();
+                }
+            }
+        }
+        //Harass
+        public static void Harass()
+        {
+            if (Config.HarassMenu["useQ"].Cast<CheckBox>().CurrentValue
+                && Spells.Q.IsReady()
+                && !Player.Instance.IsDashing())
+            {
+                var target = TargetSelector.GetTarget(Spells.Q.Range, DamageType.Physical);
+                if (target != null && target.IsValidTarget())
+                {
+                    Spells.Q.Cast(target);
+                }
+            }
+            var intTarget = TargetSelector.GetTarget(Spells.W.Range, DamageType.Magical);
+            if (Config.HarassMenu["useW"].Cast<CheckBox>().CurrentValue
+                && Player.Instance.Mana > Config.HarassMenu["HrEnergyManager"].Cast<Slider>().CurrentValue
+                && Spells.W.IsReady()
+                && intTarget.HasBuff("kennenmarkofstorm") && intTarget.CountEnemiesInRange(900) != null)
+            {                              
+                    Spells.W.Cast();                
+            }
+        }
+        //LaneClear
+        public static void LaneClear()
+        {        
+            if (Config.LaneClear["useQLc"].Cast<CheckBox>().CurrentValue
+              || Player.Instance.Mana > Config.LaneClear["EnergyManager"].Cast<Slider>().CurrentValue
+              || Spells.Q.IsReady()) return;
+                {
+                    var minions = (Obj_AI_Minion)GetEnemy(Spells.Q.Range, GameObjectType.obj_AI_Minion);
+                    if (minions != null) return;
+                    Spells.Q.Cast(minions.ServerPosition);
+                }            
+
+            var intTarget = TargetSelector.GetTarget (Spells.W.Range, DamageType.Magical);                               
+            if (Config.LaneClear["useWLc"].Cast<CheckBox>().CurrentValue
+                && Player.Instance.Mana > Config.LaneClear["EnergyManager"].Cast<Slider>().CurrentValue
+                && Spells.W.IsReady()
+                && intTarget.HasBuff("kennenmarkofstorm") && intTarget.CountEnemiesInRange(800) >= Config.JungleClear["WhitLc"].Cast<Slider>().CurrentValue)
+            {              
+                    Spells.W.Cast();               
+            }
+
+            if (Config.LaneClear["useELc"].Cast<CheckBox>().CurrentValue
+               && Player.Instance.Mana > Config.LaneClear["EnergyManager"].Cast<Slider>().CurrentValue)
+            {
+                if (Spells.E.IsReady())
+                {
+                    Spells.E.Cast();
+                }
+            }
+        }
+        //Lasthit
+        public enum AttackSpell
+        { Q, W }
+        private static Obj_AI_Base MinionQLh(GameObjectType type, AttackSpell spell)
+        {
+            return EntityManager.MinionsAndMonsters.EnemyMinions.OrderBy(a => a.Health).FirstOrDefault
+                (a => a.IsEnemy 
+                && a.Type == type 
+                && a.Distance(Kennen) <= Spells.Q.Range
+                && !a.IsDead
+                && !a.IsInvulnerable
+                && a.IsValidTarget(Spells.Q.Range)
+                &&a.Health <= Damages.QDamage(a));
+        }
+
+        private static Obj_AI_Base MinionWlh(GameObjectType type, AttackSpell spell)
+        {
+            return EntityManager.MinionsAndMonsters.EnemyMinions.OrderBy(a => a.Health).FirstOrDefault
+                (a => a.IsEnemy
+                && a.Type == type
+                && a.Distance(Kennen) <= Spells.W.Range
+                && !a.IsDead
+                && !a.IsInvulnerable
+                && a.IsValidTarget(Spells.W.Range)
+                && a.Health <= Damages.WDamage(a));
+        }
+
+        public static void Lasthit()
+        {
+            if (Config.LasthitMenu["useQLh"].Cast<CheckBox>().CurrentValue
+              || Spells.Q.IsReady()) return;
+            {
+                var qminion = (Obj_AI_Minion)MinionQLh(GameObjectType.obj_AI_Minion, AttackSpell.Q);
+                if (qminion != null)
+                    {
+                        Spells.Q.Cast(qminion.ServerPosition);
+                    }
+
+                if (Config.LasthitMenu["useWLh"].Cast<CheckBox>().CurrentValue
+                 || Spells.W.IsReady()) return;
+                {
+                 var wminion = (Obj_AI_Minion)MinionWlh(GameObjectType.obj_AI_Minion, AttackSpell.W);
+                 if (wminion != null)
+                    {
+                         if (wminion.HasBuff("kennenmarkofstorm"))
+                            {
+                                Spells.W.Cast();
+                            }
+                        }
+                    }
+                }
+            }       
+        //JungleClear
+        public static void JungleClear()
+        {
+            if (Config.JungleClear["useQJc"].Cast<CheckBox>().CurrentValue
+                && Player.Instance.Mana > Config.JungleClear["JcEnergyManager"].Cast<Slider>().CurrentValue)
+            {
+                if (Spells.Q.IsReady())
+                {
+                    Spells.Q.Cast();
+                }
+            }
+
+            var intTarget = TargetSelector.GetTarget(Spells.W.Range, DamageType.Magical);
+            if (Config.JungleClear["useWJc"].Cast<CheckBox>().CurrentValue
+                && Player.Instance.ManaPercent > Config.JungleClear["JcEnergyManager"].Cast<Slider>().CurrentValue
+                && Spells.W.IsReady()
+                && intTarget.HasBuff("kennenmarkofstorm") && intTarget.CountEnemiesInRange(800) >= Config.JungleClear["WhitJc"].Cast<Slider>().CurrentValue)
+            {
+                if (Player.Instance.Mana > Config.JungleClear["JcEnergyManager"].Cast<Slider>().CurrentValue)
+                {
+                    Spells.W.Cast();
+                }
+            }
+
+            if (Config.JungleClear["useEJc"].Cast<CheckBox>().CurrentValue
+               && Player.Instance.Mana > Config.JungleClear["JcEnergyManager"].Cast<Slider>().CurrentValue)
+            {
+                if (Spells.E.IsReady())
+                {
+                    Spells.E.Cast();
+                }
+            }
+        }
+        public static void UseIgnite()
+        {
+            if (Config.ComboMenu["useIg"].Cast<CheckBox>().CurrentValue
+                && Spells.ignite.IsReady())
+            {
+                var target = TargetSelector.GetTarget(Spells.ignite.Range, DamageType.True);
+                if (target != null && target.IsValidTarget())
+                {
+                    if ( Damages.IgniteDamage(target) > target.Health +20)
+                    {
+                        Spells.ignite.Cast(target);
+                    }
+                }
+            }
+        }
+        public static readonly AIHeroClient Kennen = ObjectManager.Player;
+        //KillSteal
+        public static void Killsteal()
+        {
+            if (! Config.MiscMenu["useQKS"].Cast<CheckBox>().CurrentValue || !Spells.Q.IsReady()) return;
+            try
+            {
+                foreach (var poutput in from qtarget in EntityManager.Heroes.Enemies.Where(
+                    hero => hero.IsValidTarget(Spells.Q.Range) && !hero.IsDead && !hero.IsZombie)
+                                        where Kennen.GetSpellDamage(qtarget, SpellSlot.Q) >= qtarget.Health
+                                        select Spells.Q.GetPrediction(qtarget))
+                {                                    
+                        Spells.Q.Cast(poutput.CastPosition);
+                }
+                    if (!Config.MiscMenu["useWKS"].Cast<CheckBox>().CurrentValue || !Spells.W.IsReady())
+                    {
+                        try
+                        {
+                            foreach (var wtarget in EntityManager.Heroes.Enemies.Where(
+                                hero =>
+                                    hero.IsValidTarget(Spells.W.Range) && !hero.IsDead && !hero.IsZombie)
+                                .Where(wtarget => Kennen.GetSpellDamage(wtarget, SpellSlot.W) >= wtarget.Health)
+                                .Where(wtarget => wtarget.HasBuff("kennenmarkofstorm")))
+                            {
+                                Spells.W.Cast();
+                            }
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+            catch
+            {
+            }
+       }     
+    }
+}
