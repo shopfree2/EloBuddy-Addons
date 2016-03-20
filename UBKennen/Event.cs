@@ -18,21 +18,21 @@ namespace UBKennen
         {
             get { return ObjectManager.Player; }
         }
-        public static void Gapcloser_OnGapCloser(AIHeroClient sender, Gapcloser.GapcloserEventArgs e)
+        public static void Gapcloser_OnGapCloser(AIHeroClient who, Gapcloser.GapcloserEventArgs e)
         {
-            if (Config.MiscMenu["useEAG"].Cast<CheckBox>().CurrentValue && sender.IsEnemy &&
+            if (Config.MiscMenu["useEAG"].Cast<CheckBox>().CurrentValue && who.IsEnemy &&
                 e.End.Distance(_Player) < 200)
             {
                 Spells.E.Cast();
             }
 
-            if (Config.MiscMenu["useWAG"].Cast<CheckBox>().CurrentValue && sender.IsEnemy &&
+            if (Config.MiscMenu["useWAG"].Cast<CheckBox>().CurrentValue && who.IsEnemy &&
                 e.End.Distance(_Player) < 200)
             {
                 Spells.W.Cast();
             }
 
-            if (Config.MiscMenu["useQAG"].Cast<CheckBox>().CurrentValue && sender.IsEnemy &&
+            if (Config.MiscMenu["useQAG"].Cast<CheckBox>().CurrentValue && who.IsEnemy &&
                 e.End.Distance(_Player) <200)
             {
                 Spells.Q.Cast(e.End);

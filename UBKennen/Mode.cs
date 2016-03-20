@@ -59,8 +59,8 @@ namespace UBKennen
             if (Config.ComboMenu["useRCombo"].Cast<CheckBox>().CurrentValue
                       && Spells.R.IsReady())
             {
-                var target = TargetSelector.GetTarget(Spells.R.Range, DamageType.Magical);
-                if (target.CountEnemiesInRange(550) >= Config.ComboMenu["RhitCombo"].Cast<Slider>().CurrentValue)
+                var rtarget = TargetSelector.GetTarget(Spells.R.Range, DamageType.Magical);
+                if (rtarget.CountEnemiesInRange(500) >= Config.ComboMenu["RhitCombo"].Cast<Slider>().CurrentValue)
                 {
                     Spells.R.Cast();
                 }
