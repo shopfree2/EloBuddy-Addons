@@ -27,6 +27,7 @@ namespace UBKennen
             // Menu
             Menu = MainMenu.AddMenu("UB Kennen", "UBKennen");          
             Menu.AddGroupLabel("Made by Uzumaki Boruto");
+            Menu.AddLabel("Dattenosa");
 
             //ComboMenu
             ComboMenu = Menu.AddSubMenu("Combo");
