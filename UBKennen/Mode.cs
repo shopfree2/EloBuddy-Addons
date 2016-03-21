@@ -90,21 +90,21 @@ namespace UBKennen
         }
         //LaneClear
         public static void LaneClear()
-        {        
+        {
+            var minion = ObjectManager.Get<Obj_AI_Minion>().Where(x => x.IsEnemy && x.IsMinion && x.IsValidTarget(Spells.Q.Range)).OrderBy(x => x.Health).FirstOrDefault();
+            if (minion != null) return;
             if (Config.LaneClear["useQLc"].Cast<CheckBox>().CurrentValue
-              || Player.Instance.Mana > Config.LaneClear["EnergyManager"].Cast<Slider>().CurrentValue
-              || Spells.Q.IsReady()) return;
-                {
-                    var minions = (Obj_AI_Minion)GetEnemy(Spells.Q.Range, GameObjectType.obj_AI_Minion);
-                    if (minions != null) return;
-                    Spells.Q.Cast(minions.ServerPosition);
-                }            
+              && Player.Instance.Mana > Config.LaneClear["EnergyManager"].Cast<Slider>().CurrentValue
+              && Spells.Q.IsReady()) return;
+                {                  
+                    Spells.Q.Cast(minion);
+                }
 
-            var intTarget = TargetSelector.GetTarget (Spells.W.Range, DamageType.Magical);                               
+                var wminion = ObjectManager.Get<Obj_AI_Minion>().Where(x => x.IsEnemy && x.IsMinion && x.IsValidTarget(Spells.W.Range)).OrderBy(x => x.Health).FirstOrDefault();                               
             if (Config.LaneClear["useWLc"].Cast<CheckBox>().CurrentValue
                 && Player.Instance.Mana > Config.LaneClear["EnergyManager"].Cast<Slider>().CurrentValue
                 && Spells.W.IsReady()
-                && intTarget.HasBuff("kennenmarkofstorm") && intTarget.CountEnemiesInRange(800) >= Config.JungleClear["WhitLc"].Cast<Slider>().CurrentValue)
+                && wminion.HasBuff("kennenmarkofstorm") && wminion.CountEnemiesInRange(800) >= Config.LaneClear["WhitLc"].Cast<Slider>().CurrentValue)
             {              
                     Spells.W.Cast();               
             }
@@ -173,20 +173,25 @@ namespace UBKennen
         //JungleClear
         public static void JungleClear()
         {
+            var monster = ObjectManager.Get<Obj_AI_Minion>().Where(x => x.IsMonster && x.IsValidTarget(Spells.Q.Range)).OrderBy(x => x.Health).FirstOrDefault();
+            if (monster == null || !monster.IsValid) return;
+            if (Orbwalker.IsAutoAttacking) return;
+            Orbwalker.ForcedTarget = null;
             if (Config.JungleClear["useQJc"].Cast<CheckBox>().CurrentValue
-                && Player.Instance.Mana > Config.JungleClear["JcEnergyManager"].Cast<Slider>().CurrentValue)
-            {
-                if (Spells.Q.IsReady())
-                {
-                    Spells.Q.Cast();
-                }
+                && Player.Instance.Mana > Config.JungleClear["JcEnergyManager"].Cast<Slider>().CurrentValue
+                && Spells.Q.IsReady())
+            {                            
+                    Spells.Q.Cast(monster);              
             }
 
-            var intTarget = TargetSelector.GetTarget(Spells.W.Range, DamageType.Magical);
+            var wmonster = ObjectManager.Get<Obj_AI_Minion>().Where(x => x.IsMonster && x.IsValidTarget(Spells.W.Range)).OrderBy(x => x.Health).FirstOrDefault();
+            if (wmonster == null || !wmonster.IsValid) return;
+            if (Orbwalker.IsAutoAttacking) return;
+            Orbwalker.ForcedTarget = null;
             if (Config.JungleClear["useWJc"].Cast<CheckBox>().CurrentValue
                 && Player.Instance.ManaPercent > Config.JungleClear["JcEnergyManager"].Cast<Slider>().CurrentValue
                 && Spells.W.IsReady()
-                && intTarget.HasBuff("kennenmarkofstorm") && intTarget.CountEnemiesInRange(800) >= Config.JungleClear["WhitJc"].Cast<Slider>().CurrentValue)
+                && wmonster.HasBuff("kennenmarkofstorm") && wmonster.CountEnemiesInRange(800) >= Config.JungleClear["WhitJc"].Cast<Slider>().CurrentValue)
             {
                 if (Player.Instance.Mana > Config.JungleClear["JcEnergyManager"].Cast<Slider>().CurrentValue)
                 {
