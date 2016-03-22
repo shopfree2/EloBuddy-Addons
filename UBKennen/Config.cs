@@ -34,16 +34,18 @@ namespace UBKennen
             {
                 ComboMenu.AddGroupLabel("Combo Settings");
                 ComboMenu.Add("useQCombo", new CheckBox("Use Q"));
-                ComboMenu.Add("sep1", new Separator());
                 ComboMenu.Add("useWCombo", new CheckBox("Use W"));
                 ComboMenu.Add("WHitCombo", new Slider("Only Use W if hit {0} enemy", 1, 1, 5));
-                ComboMenu.Add("sep2", new Separator());
-                ComboMenu.Add("useECombo", new CheckBox("Use E", false));
-                ComboMenu.Add("sep3", new Separator());
+                ComboMenu.Add("useECombo", new CheckBox("Use E", false));                
                 ComboMenu.Add("useRCombo", new CheckBox("Use R"));
                 ComboMenu.Add("RHitCombo", new Slider("Least enemy to use R", 2, 1, 5));
                 ComboMenu.Add("sep", new Separator());
+                ComboMenu.AddLabel("Use spells");
                 ComboMenu.Add("useIg", new CheckBox("Use Ignite"));
+                ComboMenu.Add("useheal", new CheckBox("Use Heal"));
+                ComboMenu.Add("manageheal", new Slider("If my HP below {0}% use Heal", 15, 1, 80));
+                ComboMenu.Add("usehealally", new CheckBox("Use heal to save ally"));
+                ComboMenu.Add("managehealally", new Slider("If ally's HP below {0}% use Heal to save", 10, 1, 80));
             }
 
             //HarassMenu

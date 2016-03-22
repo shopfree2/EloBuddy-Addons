@@ -14,6 +14,7 @@ namespace UBKennen
         public static Spell.Active E { get; private set; }
         public static Spell.Active R { get; private set; }
         public static Spell.Targeted ignite { get; private set; }
+        public static Spell.Active heal { get; private set; }
 
         public static bool HasSpell(string s)
         {
@@ -27,7 +28,9 @@ namespace UBKennen
             E = new Spell.Active(SpellSlot.E);
             R = new Spell.Active(SpellSlot.R, 550);
             if (HasSpell("summonerdot")) 
-            ignite = new Spell.Targeted(ObjectManager.Player.GetSpellSlotFromName("summonerdot"), 600);
+                ignite = new Spell.Targeted(ObjectManager.Player.GetSpellSlotFromName("summonerdot"), 600);          
+            if (HasSpell("summonerheal"))
+                heal = new Spell.Active(ObjectManager.Player.GetSpellSlotFromName("summonerheal"), 850);   
         }
     }
 }

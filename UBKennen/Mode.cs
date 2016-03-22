@@ -45,7 +45,8 @@ namespace UBKennen
                  && Spells.W.IsReady())
             {
                 var intTarget = TargetSelector.GetTarget(Spells.W.Range, DamageType.Magical);
-                if (intTarget.CountEnemiesInRange(800) >= Config.ComboMenu["WhitCombo"].Cast<Slider>().CurrentValue)
+                if (intTarget.CountEnemiesInRange(950) >= Config.ComboMenu["WhitCombo"].Cast<Slider>().CurrentValue
+                    && intTarget.HasBuff("kennenmarkofstorm"))
                 {
                     Spells.W.Cast();
                 }
@@ -83,7 +84,7 @@ namespace UBKennen
             if (Config.HarassMenu["useW"].Cast<CheckBox>().CurrentValue
                 && Player.Instance.Mana > Config.HarassMenu["HrEnergyManager"].Cast<Slider>().CurrentValue
                 && Spells.W.IsReady()
-                && intTarget.HasBuff("kennenmarkofstorm") && intTarget.CountEnemiesInRange(900) != null)
+                && intTarget.HasBuff("kennenmarkofstorm") && intTarget.CountEnemiesInRange(950) != null)
             {                              
                     Spells.W.Cast();                
             }
@@ -104,7 +105,7 @@ namespace UBKennen
             if (Config.LaneClear["useWLc"].Cast<CheckBox>().CurrentValue
                 && Player.Instance.Mana > Config.LaneClear["EnergyManager"].Cast<Slider>().CurrentValue
                 && Spells.W.IsReady()
-                && wminion.HasBuff("kennenmarkofstorm") && wminion.CountEnemiesInRange(800) >= Config.LaneClear["WhitLc"].Cast<Slider>().CurrentValue)
+                && wminion.HasBuff("kennenmarkofstorm") && wminion.CountEnemiesInRange(950) >= Config.LaneClear["WhitLc"].Cast<Slider>().CurrentValue)
             {              
                     Spells.W.Cast();               
             }
@@ -258,6 +259,27 @@ namespace UBKennen
             catch
             {
             }
-       }     
+        }
+        public static void Useheal()
+        {
+            
+            if (Config.ComboMenu["useheal"].Cast<CheckBox>().CurrentValue
+             && Player.Instance.HealthPercent < Config.ComboMenu["manageheal"].Cast<Slider>().CurrentValue
+             && ObjectManager.Player.CountEnemiesInRange(900) >= 1
+             && Spells.heal.IsReady())
+            {
+                Spells.heal.Cast();
+            }
+            foreach (
+                var ally in EntityManager.Heroes.Allies.Where(a => !a.IsDead))
+            {
+                if (Config.ComboMenu["usehealally"].Cast<CheckBox>().CurrentValue && ally.CountEnemiesInRange(800) >= 1 
+                    && ObjectManager.Player.Position.Distance(ally) < 800 
+                    && ally.HealthPercent <= Config.ComboMenu["managehealally"].Cast<Slider>().CurrentValue)
+                {
+                    Spells.heal.Cast();
+                }
+            }
+        } 
     }
 }
