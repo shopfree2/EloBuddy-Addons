@@ -3,7 +3,7 @@ using System.Linq;
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Enumerations;
-using SharpDX;
+
 
 namespace UBKennen
 {
