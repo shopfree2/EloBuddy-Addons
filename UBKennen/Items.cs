@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EloBuddy;
 using EloBuddy.SDK;
@@ -43,6 +44,10 @@ namespace UBKennen
             if (ZhonyaHourglass.IsOwned())
             {
                 UseItem3(ZhonyaHourglass, target);
+            }
+            if (ZhonyaHourglass.IsOwned())
+            {
+                Special(ZhonyaHourglass, target);
             }
         }
 
@@ -91,6 +96,22 @@ namespace UBKennen
             if (slot3 != null && Player.GetSpell(slot3.SpellSlot).IsReady)
             {
                 Player.CastSpell(slot3.SpellSlot);
+            }
+        }
+        private static void Special(Item item, AIHeroClient target)
+        {
+            if (!target.IsValidTarget(550)
+                || !Config.MiscMenu["item.4"].Cast<CheckBox>().CurrentValue
+                || Config.MiscMenu["item.4mng"].Cast<Slider>().CurrentValue <= target.CountEnemiesInRange(400))
+            {
+                return;
+            }
+
+            var slot4 = Player.Instance.InventoryItems.FirstOrDefault(x => x.Id == item.Id);
+            if (slot4 != null && Spells.R.IsReady() && Player.GetSpell(slot4.SpellSlot).IsReady)
+            {
+                Spells.R.Cast();
+                Player.CastSpell(slot4.SpellSlot);
             }
         }
     }

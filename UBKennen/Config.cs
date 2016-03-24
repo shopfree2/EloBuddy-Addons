@@ -2,8 +2,12 @@
 using System.Linq;
 using EloBuddy;
 using EloBuddy.SDK;
+using EloBuddy.SDK.Events;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
+using EloBuddy.SDK.Rendering;
+using SharpDX;
+
 
 namespace UBKennen
 {
@@ -117,6 +121,10 @@ namespace UBKennen
 
                 MiscMenu.Add("item.3", new CheckBox("Auto use Zhonya's Hourglass"));
                 MiscMenu.Add("item.3MyHp", new Slider("My HP lower than {0}%", 50));
+                MiscMenu.Add("sep8", new Separator());
+
+                MiscMenu.Add("item.4", new CheckBox("Use R and immediately Zhonya's Hourglass"));
+                MiscMenu.Add("item.4mng", new Slider("Do it if hit {0} enemy", 3, 1, 5));
             }         
         }                     
     }

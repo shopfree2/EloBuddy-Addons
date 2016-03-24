@@ -16,7 +16,7 @@ namespace UBKennen
         public static void Loading_OnLoadingComplete(EventArgs args)
         {
             if (Player.Instance.ChampionName != "Kennen") return;
-            Mode.Useheal();
+
             Mode.UseIgnite();
             Config.Dattenosa();
             Spells.InitSpells();
