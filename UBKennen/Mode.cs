@@ -15,18 +15,6 @@ namespace UBKennen
 {
     class Mode
     {
-        private static Obj_AI_Base GetEnemy(float range, GameObjectType t)
-        {
-            switch (t)
-            {
-                case GameObjectType.AIHeroClient:
-                    return EntityManager.Heroes.Enemies.OrderBy(a => a.Health).FirstOrDefault(
-                        a => a.Distance(Player.Instance) < range && !a.IsDead && !a.IsInvulnerable);
-                default:
-                    return EntityManager.MinionsAndMonsters.EnemyMinions.OrderBy(a => a.Health).FirstOrDefault(
-                        a => a.Distance(Player.Instance) < range && !a.IsDead && !a.IsInvulnerable);
-            }
-        }
         //Combo
         public static void Combo()
         {          

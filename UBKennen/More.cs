@@ -17,8 +17,6 @@ namespace UBKennen
         {
             if (Player.Instance.ChampionName != "Kennen") return;
 
-            Mode.Useheal();
-            Mode.UseIgnite();
             Config.Dattenosa();
             Spells.InitSpells();
             Items.InitItems();           
@@ -30,6 +28,12 @@ namespace UBKennen
             Gapcloser.OnGapcloser += Events.Gapcloser_OnGapCloser;
             Game.OnTick += GameOnTick;
             Drawing.OnDraw += OnDraw;
+            Game.OnUpdate += OnUpdate;
+        }
+        private static void OnUpdate(EventArgs args)
+        {
+            Mode.Useheal();
+            Mode.UseIgnite();
         }
         private static void GameOnTick(EventArgs args)
         {
