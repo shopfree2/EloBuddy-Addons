@@ -275,7 +275,8 @@ namespace UBKennen
             {
                 if (Config.ComboMenu["usehealally"].Cast<CheckBox>().CurrentValue && ally.CountEnemiesInRange(800) >= 1 
                     && ObjectManager.Player.Position.Distance(ally) < 800 
-                    && ally.HealthPercent <= Config.ComboMenu["managehealally"].Cast<Slider>().CurrentValue)
+                    && ally.HealthPercent <= Config.ComboMenu["managehealally"].Cast<Slider>().CurrentValue
+                    && Spells.heal.IsReady())
                 {
                     Spells.heal.Cast();
                 }
