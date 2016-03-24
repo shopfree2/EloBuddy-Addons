@@ -17,6 +17,7 @@ namespace UBKennen
         {
             if (Player.Instance.ChampionName != "Kennen") return;
 
+            Mode.Useheal();
             Mode.UseIgnite();
             Config.Dattenosa();
             Spells.InitSpells();
