@@ -5,7 +5,6 @@ using EloBuddy.SDK;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 
-
 namespace UBKennen
 {
     public class Config
