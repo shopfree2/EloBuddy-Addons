@@ -12,7 +12,6 @@ namespace UBSivir.Evade
 
         static SpellDatabase()
         {
-            //Add spells to the database 
 
             #region Aatrox
 

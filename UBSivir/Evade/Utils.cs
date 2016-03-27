@@ -40,9 +40,6 @@ namespace UBSivir.Evade
             return result;
         }
 
-        /// <summary>
-        ///     Returns when the unit will be able to move again
-        /// </summary>
         public static int ImmobileTime(Obj_AI_Base unit)
         {
             var result = 0f;
@@ -66,7 +63,6 @@ namespace UBSivir.Evade
             var from = Drawing.WorldToScreen(start);
             var to = Drawing.WorldToScreen(end);
             Drawing.DrawLine(from[0], from[1], to[0], to[1], width, color);
-            //Drawing.DrawLine(from.X, from.Y, to.X, to.Y, width, color);
         }
     }
 

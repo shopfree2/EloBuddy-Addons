@@ -35,7 +35,6 @@ namespace UBSivir
                 ComboMenu.Add("useQCombo", new CheckBox("Use Q"));
                 ComboMenu.Add("AutoQ", new CheckBox("Auto Q if target in immobilize(soon)", false));
                 ComboMenu.Add("useWCombo", new CheckBox("Use W"));
-                ComboMenu.Add("useECombo", new CheckBox("Use E"));
                 ComboMenu.Add("useRCombo", new CheckBox("Use R"));
                 ComboMenu.Add("RHitCombo", new Slider("Use R if buff {0} ally & you in combo mode", 4, 1, 4));
                 ComboMenu.Add("sep", new Separator());

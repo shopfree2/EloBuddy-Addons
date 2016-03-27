@@ -18,7 +18,7 @@ namespace UBSivir
 
             Config.Dattenosa();
             Mode.Killsteal();
-            SpellBlock.Initialize();
+            _E.Initialize();
             _E_Advance.Initialize();
             Spells.InitSpells();
             Items.InitItems();   

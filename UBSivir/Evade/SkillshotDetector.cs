@@ -18,10 +18,8 @@ namespace UBSivir.Evade
 
         static SkillshotDetector()
         {
-            //Detect when the skillshots are created.
             Obj_AI_Base.OnProcessSpellCast += ObjAiHeroOnOnProcessSpellCast;
 
-            //Detect when projectiles collide.
             GameObject.OnDelete += ObjSpellMissileOnOnDelete;
             GameObject.OnCreate += ObjSpellMissileOnOnCreate;
             GameObject.OnDelete += GameObject_OnDelete;
@@ -64,7 +62,7 @@ namespace UBSivir.Evade
         {
             if (!sender.IsValid || !(sender is MissileClient))
             {
-                return; //not sure if needed
+                return; 
             }
 
             var missile = (MissileClient)sender;
@@ -96,7 +94,6 @@ namespace UBSivir.Evade
             var unitPosition = missile.StartPosition.To2D();
             var endPos = missile.EndPosition.To2D();
 
-            //Calculate the real end Point:
             var direction = (endPos - unitPosition).Normalized();
             if (unitPosition.Distance(endPos) > spellData.Range || spellData.FixedRange)
             {
@@ -112,13 +109,9 @@ namespace UBSivir.Evade
             var castTime = Environment.TickCount - Game.Ping / 2 - (spellData.MissileDelayed ? 0 : spellData.Delay) -
                            (int)(1000 * missilePosition.Distance(unitPosition) / spellData.MissileSpeed);
 
-            //Trigger the skillshot detection callbacks.
             TriggerOnDetectSkillshot(DetectionType.RecvPacket, spellData, castTime, unitPosition, endPos, unit);
         }
 
-        /// <summary>
-        ///     Delete the missiles that collide.
-        /// </summary>
         private static void ObjSpellMissileOnOnDelete(GameObject sender, EventArgs args)
         {
             if (!(sender is MissileClient))
@@ -170,14 +163,8 @@ namespace UBSivir.Evade
                      skillshot.SpellData.CanBeRemoved || skillshot.SpellData.ForceRemove)); // 
         }
 
-        /// <summary>
-        ///     This event is fired after a skillshot is detected.
-        /// </summary>
         public static event OnDetectSkillshotH OnDetectSkillshot;
 
-        /// <summary>
-        ///     This event is fired after a skillshot missile collides.
-        /// </summary>
         public static event OnDeleteMissileH OnDeleteMissile;
 
 
@@ -196,9 +183,6 @@ namespace UBSivir.Evade
             }
         }
 
-        /// <summary>
-        ///     Gets triggered when a unit casts a spell and the unit is visible.
-        /// </summary>
         private static void ObjAiHeroOnOnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             if (args.SData.Name == "dravenrdoublecast")
@@ -211,10 +195,8 @@ namespace UBSivir.Evade
             {
                 return;
             }
-            //Get the skillshot data.
             var spellData = SpellDatabase.GetByName(args.SData.Name);
 
-            //Skillshot not added in the database.
             if (spellData == null)
             {
                 return;
@@ -237,7 +219,6 @@ namespace UBSivir.Evade
                 startPos = sender.ServerPosition.To2D();
             }
 
-            //For now only zed support.
             if (spellData.FromObjects != null && spellData.FromObjects.Length > 0)
             {
                 foreach (var obj in ObjectManager.Get<GameObject>())
@@ -266,7 +247,6 @@ namespace UBSivir.Evade
                 return;
             }
 
-            //Calculate the real end Point:
             var direction = (endPos - startPos).Normalized();
             if (startPos.Distance(endPos) > spellData.Range || spellData.FixedRange)
             {
@@ -280,7 +260,6 @@ namespace UBSivir.Evade
             }
 
 
-            //Trigger the skillshot detection callbacks.
             TriggerOnDetectSkillshot(
                 DetectionType.ProcessSpell, spellData, Environment.TickCount - Game.Ping / 2, startPos, endPos, sender);
         }

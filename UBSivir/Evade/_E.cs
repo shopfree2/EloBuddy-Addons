@@ -12,17 +12,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-//using Settings = UBSivir.Config.ShieldMenu;
 
 namespace UBSivir
 {
-    public static class SpellBlock
+    public static class _E
     {
         public static readonly Dictionary<string, List<BlockedSpell>> BlockedSpells =
             new Dictionary<string, List<BlockedSpell>>();
 
 
-        static SpellBlock()
+        static _E()
         {
             const SpellSlot N48 = (SpellSlot)48;
 
@@ -115,7 +114,7 @@ namespace UBSivir
                         IsSelfBuff = true
                     },
                     q
-                    //new BlockedSpell(SpellSlot.E) { BuffName = "JaxCounterStrike", IsSelfBuff = true }
+                    // Block E jax soon
                 });
             BlockedSpells.Add(
                 "Jayce",
@@ -132,8 +131,7 @@ namespace UBSivir
             BlockedSpells.Add(
                 "Kennen", new List<BlockedSpell> { new BlockedSpell("KennenMegaProc", "Empowered", true), w });
             BlockedSpells.Add("Khazix", new List<BlockedSpell> { q });
-            BlockedSpells.Add("Kindred", new List<BlockedSpell> { e });
-            //new BlockedSpell((SpellSlot) 48) { SpellName = "kindredbasicattackoverridelightbombfinal", Name = "Empowered E" } });
+            BlockedSpells.Add("Kindred", new List<BlockedSpell> { e });           
             BlockedSpells.Add("Leblanc", new List<BlockedSpell> { q, new BlockedSpell("LeblancChaosOrbM", "Block RQ") });
             BlockedSpells.Add(
                 "LeeSin",
@@ -314,10 +312,10 @@ namespace UBSivir
 
             foreach (var unit in enemies)
             {
-                if (!SpellBlock.BlockedSpells.ContainsKey(unit.ChampionName))
+                if (!_E.BlockedSpells.ContainsKey(unit.ChampionName))
                     continue;
 
-                foreach (var spell in SpellBlock.BlockedSpells[unit.ChampionName])
+                foreach (var spell in _E.BlockedSpells[unit.ChampionName])
                 {
                     var slot = spell.Slot.Equals(48) ? SpellSlot.R : spell.Slot;
                     Config.ShieldMenu.Add(unit.ChampionName + spell.MenuName, new CheckBox(unit.ChampionName + " - " + spell.DisplayName, true));
