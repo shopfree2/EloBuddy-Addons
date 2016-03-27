@@ -9,3 +9,14 @@ C:\Users\Uzumaki Boruto\Documents\Visual Studio 2012\Projects\UBSivir\UBSivir\bi
 C:\Users\Uzumaki Boruto\Documents\Visual Studio 2012\Projects\UBSivir\UBSivir\obj\Release\UBSivir.csprojResolveAssemblyReference.cache
 C:\Users\Uzumaki Boruto\Documents\Visual Studio 2012\Projects\UBSivir\UBSivir\obj\Release\UBSivir.exe
 C:\Users\Uzumaki Boruto\Documents\Visual Studio 2012\Projects\UBSivir\UBSivir\obj\Release\UBSivir.pdb
+C:\Users\Uzumaki Boruto\Desktop\EloBuddy-Addons\UBSivir\bin\Release\UBSivir.exe.config
+C:\Users\Uzumaki Boruto\Desktop\EloBuddy-Addons\UBSivir\bin\Release\UBSivir.exe
+C:\Users\Uzumaki Boruto\Desktop\EloBuddy-Addons\UBSivir\bin\Release\UBSivir.pdb
+C:\Users\Uzumaki Boruto\Desktop\EloBuddy-Addons\UBSivir\bin\Release\EloBuddy.dll
+C:\Users\Uzumaki Boruto\Desktop\EloBuddy-Addons\UBSivir\bin\Release\EloBuddy.SDK.dll
+C:\Users\Uzumaki Boruto\Desktop\EloBuddy-Addons\UBSivir\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\Uzumaki Boruto\Desktop\EloBuddy-Addons\UBSivir\bin\Release\SharpDX.dll
+C:\Users\Uzumaki Boruto\Desktop\EloBuddy-Addons\UBSivir\bin\Release\Newtonsoft.Json.dll
+C:\Users\Uzumaki Boruto\Desktop\EloBuddy-Addons\UBSivir\obj\Release\UBSivir.csprojResolveAssemblyReference.cache
+C:\Users\Uzumaki Boruto\Desktop\EloBuddy-Addons\UBSivir\obj\Release\UBSivir.exe
+C:\Users\Uzumaki Boruto\Desktop\EloBuddy-Addons\UBSivir\obj\Release\UBSivir.pdb
