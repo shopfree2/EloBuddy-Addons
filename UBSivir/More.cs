@@ -17,6 +17,7 @@ namespace UBSivir
             if (Player.Instance.ChampionName != "Sivir") return;
 
             Config.Dattenosa();
+            Mode.Killsteal();
             SpellBlock.Initialize();
             _E_Advance.Initialize();
             Spells.InitSpells();
