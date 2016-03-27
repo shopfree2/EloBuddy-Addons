@@ -143,11 +143,8 @@ namespace UBSivir
                 && Player.Instance.ManaPercent > Config.JungleClear["JcManager"].Cast<Slider>().CurrentValue
                 && Spells.W.IsReady()
                 && wmonster.CountEnemiesInRange(600) >= Config.JungleClear["WhitJc"].Cast<Slider>().CurrentValue)
-            {
-                if (Player.Instance.Mana > Config.JungleClear["JcEnergyManager"].Cast<Slider>().CurrentValue)
-                {
-                    Spells.W.Cast();
-                }
+            {             
+                    Spells.W.Cast();               
             }
         }
         public static readonly AIHeroClient Sivir = ObjectManager.Player;

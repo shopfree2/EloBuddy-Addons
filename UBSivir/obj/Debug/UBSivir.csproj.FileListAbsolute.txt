@@ -34,3 +34,4 @@ C:\Users\Uzumaki Boruto\documents\visual studio 2012\Projects\UBSivir\UBSivir\ob
 C:\Users\Uzumaki Boruto\documents\visual studio 2012\Projects\UBSivir\UBSivir\obj\Debug\Fakes\s\o\System.4.0.0.0.Fakes.dll
 C:\Users\Uzumaki Boruto\documents\visual studio 2012\Projects\UBSivir\UBSivir\obj\Debug\Fakes\s\o\System.4.0.0.0.Fakes.pdb
 C:\Users\Uzumaki Boruto\documents\visual studio 2012\Projects\UBSivir\UBSivir\obj\Debug\UBSivir.csprojResolveAssemblyReference.cache
+C:\Users\Uzumaki Boruto\Desktop\EloBuddy-Addons\UBSivir\bin\Debug\UBSivir.exe.config
