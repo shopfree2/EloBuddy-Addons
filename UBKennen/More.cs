@@ -50,6 +50,14 @@ namespace UBKennen
             { Mode.Lasthit(); }
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear))
             { Mode.JungleClear(); }
+
+            if (ObjectManager.Player.SkinId != Config.MiscMenu["Modskinid"].Cast<Slider>().CurrentValue)
+            {
+                if (Config.MiscMenu["Modskin"].Cast<CheckBox>().CurrentValue)
+                {
+                    Player.SetSkinId(Config.MiscMenu["Modskinid"].Cast<Slider>().CurrentValue);
+                }
+            }
       
         }
         private static void OnDraw(EventArgs args)

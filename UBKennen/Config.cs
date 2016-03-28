@@ -125,6 +125,11 @@ namespace UBKennen
 
                 MiscMenu.Add("item.4", new CheckBox("Use R and immediately Zhonya's Hourglass"));
                 MiscMenu.Add("item.4mng", new Slider("Do it if hit {0} enemy", 3, 1, 5));
+                MiscMenu.Add("sep9", new Separator());
+
+                MiscMenu.AddLabel("Mod Skin");
+                MiscMenu.Add("Modskin", new CheckBox("Enable mod skin"));
+                MiscMenu.Add("Modskinid", new Slider("Mod Skin", 6, 0, 6));
             }         
         }                     
     }
