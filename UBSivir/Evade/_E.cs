@@ -149,7 +149,7 @@ namespace UBSivir
                 "Leona", new List<BlockedSpell> { new BlockedSpell("LeonaShieldOfDaybreakAttack", "Stun Q", true) });
             BlockedSpells.Add("Lissandra", new List<BlockedSpell> { new BlockedSpell(N48) { Name = "R" } });
             BlockedSpells.Add("Lulu", new List<BlockedSpell> { w });
-            BlockedSpells.Add("Malphite", new List<BlockedSpell> { q, e });
+            BlockedSpells.Add("Malphite", new List<BlockedSpell> { q, e, r });
             BlockedSpells.Add("Malzahar", new List<BlockedSpell> { e, r });
             BlockedSpells.Add("Maokai", new List<BlockedSpell> { w });
             BlockedSpells.Add(
@@ -286,10 +286,10 @@ namespace UBSivir
                 "Volibear", new List<BlockedSpell> { new BlockedSpell("VolibearQAttack", "Empowered Q", true), w });
             BlockedSpells.Add("Warwick", new List<BlockedSpell> { q });
             BlockedSpells.Add(
-                "Wukong", new List<BlockedSpell> { new BlockedSpell("WuongQAttack", "Empowered Q", true), e });
+                "Wukong", new List<BlockedSpell> { new BlockedSpell("WukongQAttack", "Empowered Q", true), e });
             BlockedSpells.Add(
-                "XinZhao", new List<BlockedSpell> { new BlockedSpell("XenZhaoThrust3", "Empowered Q", true), e, r });
-            BlockedSpells.Add("Yasuo", new List<BlockedSpell> { new BlockedSpell("yasuoq3", "Whirlwind Q"), e });
+                "XinZhao", new List<BlockedSpell> { new BlockedSpell("XinZhaoThrust3", "Empowered Q", true), e, r });
+            BlockedSpells.Add("Yasuo", new List<BlockedSpell> { new BlockedSpell("Yasuoq3", "Whirlwind Q"), e });
             BlockedSpells.Add(
                 "Yorick",
                 new List<BlockedSpell>
