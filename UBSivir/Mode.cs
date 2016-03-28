@@ -19,7 +19,7 @@ namespace UBSivir
                 var target = TargetSelector.GetTarget(Spells.Q.Range, DamageType.Physical);
                 if (target != null && target.IsValidTarget())
                 {
-                    Spells.Q.Cast(target);
+                    Spells.Q.Cast(target.ServerPosition);
                 }
             }
             Event.Resetaa();
@@ -36,7 +36,7 @@ namespace UBSivir
         //Harass
         public static void Harass()
         {
-            if (Config.HarassMenu["useQ"].Cast<CheckBox>().CurrentValue
+            if (Config.HarassMenu["useQHr"].Cast<CheckBox>().CurrentValue
                 && Spells.Q.IsReady()
                 && !Player.Instance.IsDashing())
             {
@@ -46,27 +46,31 @@ namespace UBSivir
                     Spells.Q.Cast(target);
                 }
             }
-            if (Config.HarassMenu["useW"].Cast<CheckBox>().CurrentValue
-                && Player.Instance.ManaPercent > Config.HarassMenu["HrManager"].Cast<Slider>().CurrentValue
-                && Spells.W.IsReady())
+            if (Config.HarassMenu["useWHr"].Cast<CheckBox>().CurrentValue)
             {
-                Spells.W.Cast();
+                Event.Resetaa();
             }
         }
         //LaneClear
         public static void LaneClear()
         {
-            var minion = ObjectManager.Get<Obj_AI_Minion>().Where(x => x.IsEnemy && x.IsMinion && x.IsValidTarget(Spells.Q.Range)).OrderBy(x => x.Health).FirstOrDefault();
-            if (minion != null) return;
+            var minions = ObjectManager.Get<Obj_AI_Minion>().Where(x => x.IsMinion && x.IsValidTarget(Spells.Q.Range)).OrderBy(x => x.Health).FirstOrDefault();
+            var minion = EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy, ObjectManager.Player.ServerPosition, Spells.Q.Range, false).ToArray();
+            if (minion.Length == 0)
+            {
+                return;
+            }
             if (Config.LaneClear["useQLc"].Cast<CheckBox>().CurrentValue
               && Player.Instance.ManaPercent > Config.LaneClear["LcManager"].Cast<Slider>().CurrentValue
               && Spells.Q.IsReady()) return;
+            if (Spells.Q.Cast(EntityManager.MinionsAndMonsters.GetLineFarmLocation(minion, Spells.Q.Width, (int)Spells.Q.Range).CastPosition))
             {
-                Spells.Q.Cast(minion);
+                return;
             }
+
             if (Config.LaneClear["useWLc"].Cast<CheckBox>().CurrentValue
                 && Player.Instance.ManaPercent > Config.LaneClear["LcManager"].Cast<Slider>().CurrentValue
-                && minion.CountEnemiesInRange(700) >= Config.LaneClear["WhitLc"].Cast<Slider>().CurrentValue
+                && minions.CountEnemiesInRange(700) >= Config.LaneClear["WhitLc"].Cast<Slider>().CurrentValue
                 && Spells.W.IsReady())
             {
                 Spells.W.Cast();

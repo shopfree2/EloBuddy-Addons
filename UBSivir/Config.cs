@@ -80,7 +80,6 @@ namespace UBSivir
                 LaneClear.Add("useQLc", new CheckBox("Use Q to laneclear", false));
                 LaneClear.Add("useWLc", new CheckBox("Use W to laneclear", false));
                 LaneClear.Add("WHitLc", new Slider("Only Use W if hit {0} minion(s)", 6, 1, 30));
-                LaneClear.Add("sep4", new Separator());
                 LaneClear.Add("LcManager", new Slider("If mana percent below {0} stop use skill to laneclear", 50));
             }
             //JungleClear Menu
@@ -89,8 +88,7 @@ namespace UBSivir
                 JungleClear.AddGroupLabel("Jungleclear Settings");
                 JungleClear.Add("useQJc", new CheckBox("Use Q to jungleclear"));
                 JungleClear.Add("useWJc", new CheckBox("Use W to jungleclear"));
-                JungleClear.Add("WHitJc", new Slider("Use W if hit {0} monster(s)", 2, 1, 4));
-                JungleClear.Add("useEJc", new CheckBox("Use E to jungleclear", false));
+                JungleClear.Add("WHitJc", new Slider("Use W if hit {0} monster(s)", 2, 1, 4));               
                 JungleClear.Add("JcManager", new Slider("If mana percent below {0} stop use skill to jungleclear", 50));
             }
 
