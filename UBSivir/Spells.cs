@@ -25,7 +25,7 @@ namespace UBSivir
             {
                 AllowedCollisionCount = int.MaxValue
             };
-            W = new Spell.Active(SpellSlot.W, 500);
+            W = new Spell.Active(SpellSlot.W, 750);
             E = new Spell.Active(SpellSlot.E, 0);
             R = new Spell.Active(SpellSlot.R, 1000);           
             if (HasSpell("summonerheal"))

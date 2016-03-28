@@ -32,7 +32,15 @@ namespace UBSivir
         }
         private static void OnUpdate(EventArgs args)
         {
-            Mode.Useheal();           
+            if (Spells.heal.IsReady())
+            {
+                Mode.Useheal();
+            }
+            if (Spells.Q.IsReady())
+            {
+                Event.AutoQ();
+                Mode.Killsteal();
+            }
         }
         private static void GameOnTick(EventArgs args)
         {
@@ -49,6 +57,14 @@ namespace UBSivir
             { Mode.Lasthit(); }
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear))
             { Mode.JungleClear(); }
+
+            if (ObjectManager.Player.SkinId != Config.MiscMenu["Modskinid"].Cast<Slider>().CurrentValue)
+            {
+                if (Config.MiscMenu["Modskin"].Cast<CheckBox>().CurrentValue)
+                {
+                    Player.SetSkinId(Config.MiscMenu["Modskinid"].Cast<Slider>().CurrentValue);
+                }
+            }
       
         }
         private static void OnDraw(EventArgs args)
@@ -62,5 +78,6 @@ namespace UBSivir
                 Circle.Draw(Spells.R.IsLearned ? Color.Yellow : Color.Zero, Spells.R.Range, Player.Instance.Position);
             }
         }
+
     }
 }

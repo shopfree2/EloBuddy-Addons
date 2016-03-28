@@ -54,27 +54,32 @@ namespace UBSivir
         //LaneClear
         public static void LaneClear()
         {
-            var minions = ObjectManager.Get<Obj_AI_Minion>().Where(x => x.IsMinion && x.IsValidTarget(Spells.Q.Range)).OrderBy(x => x.Health).FirstOrDefault();
-            var minion = EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy, ObjectManager.Player.ServerPosition, Spells.Q.Range, false).ToArray();
-            if (minion.Length == 0)
-            {
-                return;
-            }
+            var minions = EntityManager.MinionsAndMonsters.GetLineFarmLocation(EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy, ObjectManager.Player.Position, Spells.Q.Range), Spells.Q.Width, (int)Spells.Q.Range);
             if (Config.LaneClear["useQLc"].Cast<CheckBox>().CurrentValue
-              && Player.Instance.ManaPercent > Config.LaneClear["LcManager"].Cast<Slider>().CurrentValue
-              && Spells.Q.IsReady()) return;
-            if (Spells.Q.Cast(EntityManager.MinionsAndMonsters.GetLineFarmLocation(minion, Spells.Q.Width, (int)Spells.Q.Range).CastPosition))
+                && Player.Instance.ManaPercent > Config.LaneClear["LcManager"].Cast<Slider>().CurrentValue
+                && Spells.Q.IsReady()) return;           
             {
-                return;
+                Spells.Q.Cast(minions.CastPosition);
             }
 
             if (Config.LaneClear["useWLc"].Cast<CheckBox>().CurrentValue
                 && Player.Instance.ManaPercent > Config.LaneClear["LcManager"].Cast<Slider>().CurrentValue
-                && minions.CountEnemiesInRange(700) >= Config.LaneClear["WhitLc"].Cast<Slider>().CurrentValue
+                && EntityManager.MinionsAndMonsters.GetLaneMinions().Count(x => x.Distance(ObjectManager.Player.Position) <= ObjectManager.Player.GetAutoAttackRange() +250) >= Config.LaneClear["WhitLc"].Cast<Slider>().CurrentValue
                 && Spells.W.IsReady())
             {
                 Spells.W.Cast();
             }
+            var target = TargetSelector.GetTarget(Spells.W.Range, DamageType.Physical);
+            if (Config.LaneClear["autoWhr"].Cast<CheckBox>().CurrentValue
+                && Player.Instance.ManaPercent > Config.LaneClear["LcManager"].Cast<Slider>().CurrentValue
+                && Spells.W.IsReady()
+                && target.CountEnemiesInRange(850) >= 1
+                && target != null 
+                && target.IsValidTarget())
+            {
+                Spells.W.Cast();
+            }
+
         }
         //Lasthit
         public enum AttackSpell

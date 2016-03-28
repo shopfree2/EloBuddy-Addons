@@ -193,7 +193,7 @@ namespace UBSivir
                     e
                 });
             BlockedSpells.Add(
-                "Quinn", new List<BlockedSpell> { new BlockedSpell("QuinnWEnhanced", "Empowered", true), e });
+                "Quinn", new List<BlockedSpell> { e });
             BlockedSpells.Add("Rammus", new List<BlockedSpell> { e });
             BlockedSpells.Add(
                 "RekSai",
@@ -221,12 +221,6 @@ namespace UBSivir
                 });
             BlockedSpells.Add("Ryze", new List<BlockedSpell> { w, e });
             BlockedSpells.Add("Shaco", new List<BlockedSpell> { q, e });
-            BlockedSpells.Add(
-                "Shen",
-                new List<BlockedSpell>
-                {
-                    new BlockedSpell("ShenQAttack", "Empowered", true) { BuffName = "shenqbuff", IsSelfBuff = true }
-                });
             BlockedSpells.Add(
                 "Shyvana", new List<BlockedSpell> { new BlockedSpell("ShyvanaDoubleAttackHit", "Empowered Q", true) });
             BlockedSpells.Add("Singed", new List<BlockedSpell> { e });
@@ -330,7 +324,7 @@ namespace UBSivir
             if (!Config.ShieldMenu["blockSpellsE"].Cast<CheckBox>().CurrentValue || !Spells.E.IsReady())
                 return;
 
-            foreach (var skillshot in Evade.Evade.GetSkillshotsAboutToHit(Player.Instance, (int)(Spells.E.CastDelay)))
+            foreach (var skillshot in Evade.Evade.GetSkillshotsAboutToHit(Player.Instance, (int)(Game.Ping)))
             {
                 if (!Spells.E.IsReady())
                     return;

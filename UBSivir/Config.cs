@@ -68,8 +68,7 @@ namespace UBSivir
             {
                 HarassMenu.AddGroupLabel("Harass Settings");
                 HarassMenu.Add("useQHr", new CheckBox("Use Q"));
-                HarassMenu.Add("useWHr", new CheckBox("Use W"));
-                HarassMenu.Add("autoWHr", new CheckBox("Auto W if maybe hit enemy(soon)", false));
+                HarassMenu.Add("useWHr", new CheckBox("Use W"));               
                 HarassMenu.Add("HrManage", new Slider("If mana percent below {0} stop harass", 50));
             }
 
@@ -80,6 +79,7 @@ namespace UBSivir
                 LaneClear.Add("useQLc", new CheckBox("Use Q to laneclear", false));
                 LaneClear.Add("useWLc", new CheckBox("Use W to laneclear", false));
                 LaneClear.Add("WHitLc", new Slider("Only Use W if hit {0} minion(s)", 6, 1, 30));
+                LaneClear.Add("autoWHr", new CheckBox("Auto W if maybe hit enemy"));
                 LaneClear.Add("LcManager", new Slider("If mana percent below {0} stop use skill to laneclear", 50));
             }
             //JungleClear Menu
@@ -124,6 +124,10 @@ namespace UBSivir
                 MiscMenu.Add("item.2MyHp", new Slider("My HP less than {0}%", 80));
                 MiscMenu.Add("item.2EnemyHp", new Slider("Enemy HP less than {0}%", 70));
                 MiscMenu.Add("sep7", new Separator());
+
+                MiscMenu.AddLabel("Mod Skin");
+                MiscMenu.Add("Modskin", new CheckBox("Enable mod skin"));
+                MiscMenu.Add("Modskinid", new Slider("Mod Skin", 5, 0, 8));
             }
         }
     }
