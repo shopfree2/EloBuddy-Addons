@@ -326,12 +326,11 @@ namespace UBSivir
         }
 
         static void OnUpdate(EventArgs args)
-        {
-            var Settings = Config.ShieldMenu["blockSpellsE"].Cast<CheckBox>().CurrentValue;
-            if (!Settings || !Spells.E.IsReady())
+        {           
+            if (!Config.ShieldMenu["blockSpellsE"].Cast<CheckBox>().CurrentValue || !Spells.E.IsReady())
                 return;
 
-            foreach (var skillshot in Evade.Evade.GetSkillshotsAboutToHit(Player.Instance, (int)(Spells.E.CastDelay + Game.Ping / 2f)))
+            foreach (var skillshot in Evade.Evade.GetSkillshotsAboutToHit(Player.Instance, (int)(Spells.E.CastDelay)))
             {
                 if (!Spells.E.IsReady())
                     return;
@@ -362,11 +361,8 @@ namespace UBSivir
                     if (!spell.PassesBuffCondition(enemy) || !spell.PassesModelCondition(enemy))
                         continue;
                     if (!spell.PassesSpellCondition(skillshot.SpellData.SpellName))
-                        continue;
-
-                    if (Config.ShieldMenu["Evade"].Cast<CheckBox>().CurrentValue)
+                        continue;                  
                         Spells.E.Cast();
-
                 }
             }
         }

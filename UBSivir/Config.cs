@@ -49,7 +49,6 @@ namespace UBSivir
             {
                 ShieldMenu.AddGroupLabel("Block Options");
                 ShieldMenu.Add("blockSpellsE", new CheckBox("Auto-Block Spells (E)"));
-                ShieldMenu.Add("Evade", new CheckBox("Evade is Integration"));
                 ShieldMenu.AddSeparator();
 
                 ShieldMenu.AddGroupLabel("Enemies spells to block");
