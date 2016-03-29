@@ -26,8 +26,8 @@ namespace UBSivir
             if (Config.ComboMenu["useRCombo"].Cast<CheckBox>().CurrentValue
                       && Spells.R.IsReady())
             {               
-                if (ObjectManager.Player.Position.CountAlliesInRange(1000) >= Config.ComboMenu["RhitCombo"].Cast<Slider>().CurrentValue
-                  && ObjectManager.Player.Position.CountEnemiesInRange(2000) >= 4)
+                if (ObjectManager.Player.Position.CountAlliesInRange(1000) >= (Config.ComboMenu["RhitCombo"].Cast<Slider>().CurrentValue +1)
+                  && ObjectManager.Player.Position.CountEnemiesInRange(2000) >= Config.ComboMenu["RhitCombo"].Cast<Slider>().CurrentValue)
                 {
                     Spells.R.Cast();
                 }
