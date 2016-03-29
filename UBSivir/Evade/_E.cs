@@ -38,10 +38,10 @@ namespace UBSivir
                     new BlockedSpell("aatroxwonhattackpower", "Blood Price", true),
                     r
                 });
-            BlockedSpells.Add("Akali", new List<BlockedSpell> { q, e, r }); //
+            BlockedSpells.Add("Akali", new List<BlockedSpell> { q, e, r });
             BlockedSpells.Add("Alistar", new List<BlockedSpell> { q, w });
-            BlockedSpells.Add("Anivia", new List<BlockedSpell> { e }); //
-            BlockedSpells.Add("Annie", new List<BlockedSpell> { q, r }); //
+            BlockedSpells.Add("Anivia", new List<BlockedSpell> { e });
+            BlockedSpells.Add("Annie", new List<BlockedSpell> { q, r });
             BlockedSpells.Add("Azir", new List<BlockedSpell> { r });
             BlockedSpells.Add("Bard", new List<BlockedSpell> { r });
             BlockedSpells.Add(
@@ -114,7 +114,7 @@ namespace UBSivir
                         IsSelfBuff = true
                     },
                     q
-                    // Block E jax soon
+                    //new BlockedSpell(SpellSlot.E) { BuffName = "JaxCounterStrike", IsSelfBuff = true }
                 });
             BlockedSpells.Add(
                 "Jayce",
@@ -131,7 +131,8 @@ namespace UBSivir
             BlockedSpells.Add(
                 "Kennen", new List<BlockedSpell> { new BlockedSpell("KennenMegaProc", "Empowered", true), w });
             BlockedSpells.Add("Khazix", new List<BlockedSpell> { q });
-            BlockedSpells.Add("Kindred", new List<BlockedSpell> { e });           
+            BlockedSpells.Add("Kindred", new List<BlockedSpell> { e });
+            //new BlockedSpell((SpellSlot) 48) { SpellName = "kindredbasicattackoverridelightbombfinal", Name = "Empowered E" } });
             BlockedSpells.Add("Leblanc", new List<BlockedSpell> { q, new BlockedSpell("LeblancChaosOrbM", "Block RQ") });
             BlockedSpells.Add(
                 "LeeSin",
@@ -149,12 +150,14 @@ namespace UBSivir
                 "Leona", new List<BlockedSpell> { new BlockedSpell("LeonaShieldOfDaybreakAttack", "Stun Q", true) });
             BlockedSpells.Add("Lissandra", new List<BlockedSpell> { new BlockedSpell(N48) { Name = "R" } });
             BlockedSpells.Add("Lulu", new List<BlockedSpell> { w });
-            BlockedSpells.Add("Malphite", new List<BlockedSpell> { q, e, r });
+            BlockedSpells.Add("Malphite", new List<BlockedSpell> { q, e });
             BlockedSpells.Add("Malzahar", new List<BlockedSpell> { e, r });
             BlockedSpells.Add("Maokai", new List<BlockedSpell> { w });
             BlockedSpells.Add(
-                "MasterYi", new List<BlockedSpell> { q });
+                "MasterYi", new List<BlockedSpell> { q, new BlockedSpell("MasterYiDoubleStrike", "Empowered", true) });
             BlockedSpells.Add("MissFortune", new List<BlockedSpell> { q });
+            BlockedSpells.Add(
+                "MonkeyKing", new List<BlockedSpell> { new BlockedSpell("MonkeyKingQAttack", "Empowered Q", true), e });
             BlockedSpells.Add(
                 "Mordekaiser",
                 new List<BlockedSpell> { new BlockedSpell("mordekaiserqattack2", "Empowered Q", true), r });
@@ -193,7 +196,7 @@ namespace UBSivir
                     e
                 });
             BlockedSpells.Add(
-                "Quinn", new List<BlockedSpell> { e });
+                "Quinn", new List<BlockedSpell> { new BlockedSpell("QuinnWEnhanced", "Empowered", true), e });
             BlockedSpells.Add("Rammus", new List<BlockedSpell> { e });
             BlockedSpells.Add(
                 "RekSai",
@@ -221,6 +224,12 @@ namespace UBSivir
                 });
             BlockedSpells.Add("Ryze", new List<BlockedSpell> { w, e });
             BlockedSpells.Add("Shaco", new List<BlockedSpell> { q, e });
+            BlockedSpells.Add(
+                "Shen",
+                new List<BlockedSpell>
+                {
+                    new BlockedSpell("ShenQAttack", "Empowered", true) { BuffName = "shenqbuff", IsSelfBuff = true }
+                });
             BlockedSpells.Add(
                 "Shyvana", new List<BlockedSpell> { new BlockedSpell("ShyvanaDoubleAttackHit", "Empowered Q", true) });
             BlockedSpells.Add("Singed", new List<BlockedSpell> { e });
@@ -280,10 +289,8 @@ namespace UBSivir
                 "Volibear", new List<BlockedSpell> { new BlockedSpell("VolibearQAttack", "Empowered Q", true), w });
             BlockedSpells.Add("Warwick", new List<BlockedSpell> { q });
             BlockedSpells.Add(
-                "Wukong", new List<BlockedSpell> { new BlockedSpell("WukongQAttack", "Empowered Q", true), e });
-            BlockedSpells.Add(
-                "XinZhao", new List<BlockedSpell> { new BlockedSpell("XinZhaoThrust3", "Empowered Q", true), e, r });
-            BlockedSpells.Add("Yasuo", new List<BlockedSpell> { new BlockedSpell("Yasuoq3", "Whirlwind Q"), e });
+                "XinZhao", new List<BlockedSpell> { new BlockedSpell("XenZhaoThrust3", "Empowered Q", true), e, r });
+            BlockedSpells.Add("Yasuo", new List<BlockedSpell> { new BlockedSpell("yasuoq3", "Whirlwind Q"), e });
             BlockedSpells.Add(
                 "Yorick",
                 new List<BlockedSpell>
@@ -309,6 +316,8 @@ namespace UBSivir
                 if (!_E.BlockedSpells.ContainsKey(unit.ChampionName))
                     continue;
 
+                var name = unit.ChampionName.Equals("MonkeyKing") ? "Wukong" : unit.ChampionName;
+
                 foreach (var spell in _E.BlockedSpells[unit.ChampionName])
                 {
                     var slot = spell.Slot.Equals(48) ? SpellSlot.R : spell.Slot;
@@ -324,7 +333,7 @@ namespace UBSivir
             if (!Config.ShieldMenu["blockSpellsE"].Cast<CheckBox>().CurrentValue || !Spells.E.IsReady())
                 return;
 
-            foreach (var skillshot in Evade.Evade.GetSkillshotsAboutToHit(Player.Instance, (int)(1250 + Game.Ping / 2f)))
+            foreach (var skillshot in Evade.Evade.GetSkillshotsAboutToHit(Player.Instance, (int)(Spells.E.CastDelay + Game.Ping / 2f)))
             {
                 if (!Spells.E.IsReady())
                     return;
@@ -355,8 +364,10 @@ namespace UBSivir
                     if (!spell.PassesBuffCondition(enemy) || !spell.PassesModelCondition(enemy))
                         continue;
                     if (!spell.PassesSpellCondition(skillshot.SpellData.SpellName))
-                        continue;                  
-                        Spells.E.Cast();
+                        continue;
+
+                    if (Spells.E.Cast())
+                        return;
                 }
             }
         }

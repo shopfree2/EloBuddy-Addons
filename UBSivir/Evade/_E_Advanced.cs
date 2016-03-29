@@ -52,6 +52,10 @@ namespace UBSivir
                 var buff = Player.GetBuff(dispell.BuffName);
                 if (buff == null || !buff.IsValid || !buff.IsActive)
                     continue;
+                var milisec = (buff.EndTime - Game.Time) * 1000f + dispell.Offset + 250;
+                var Emilisec = Spells.E.CastDelay + Game.Ping / 2f;
+
+                if (milisec < Emilisec)
                 {
                     Spells.E.Cast();                  
                 }

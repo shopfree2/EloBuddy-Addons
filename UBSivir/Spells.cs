@@ -14,11 +14,6 @@ namespace UBSivir
         public static Spell.Active R { get; private set; }
         public static Spell.Active heal { get; private set; }
 
-        public static bool HasSpell(string s)
-        {
-            return Player.Spells.FirstOrDefault(o => o.SData.Name.Contains(s)) != null;
-        }
-
         public static void InitSpells()
         {
             Q = new Spell.Skillshot(SpellSlot.Q, 1250, SkillShotType.Linear, 250, 1350, 90)
@@ -26,10 +21,14 @@ namespace UBSivir
                 AllowedCollisionCount = int.MaxValue
             };
             W = new Spell.Active(SpellSlot.W, 750);
-            E = new Spell.Active(SpellSlot.E, 1500);
-            R = new Spell.Active(SpellSlot.R, 1000);           
-            if (HasSpell("summonerheal"))
-                heal = new Spell.Active(ObjectManager.Player.GetSpellSlotFromName("summonerheal"), 850);
+            E = new Spell.Active(SpellSlot.E);
+            E.CastDelay = 1250;
+            R = new Spell.Active(SpellSlot.R, 1000);
+            var slot = ObjectManager.Player.GetSpellSlotFromName("summonerheal");
+            if (slot != SpellSlot.Unknown)
+            {
+                heal = new Spell.Active(slot, 800);
+            }
         }
     }
 }

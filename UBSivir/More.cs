@@ -28,19 +28,16 @@ namespace UBSivir
         {           
             Game.OnTick += GameOnTick;
             Drawing.OnDraw += OnDraw;
-            Game.OnUpdate += OnUpdate;
+            Game.OnUpdate += On_Update;
         }
-        private static void OnUpdate(EventArgs args)
-        {
-            if (Spells.heal.IsReady())
-            {
-                Mode.Useheal();
-            }
+        private static void On_Update(EventArgs args)
+        {         
+            Mode.Useheal();        
             if (Spells.Q.IsReady())
             {
                 Event.AutoQ();
                 Mode.Killsteal();
-            }
+            }          
         }
         private static void GameOnTick(EventArgs args)
         {

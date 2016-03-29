@@ -57,7 +57,7 @@ namespace UBSivir
             var minions = EntityManager.MinionsAndMonsters.GetLineFarmLocation(EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy, ObjectManager.Player.Position, Spells.Q.Range), Spells.Q.Width, (int)Spells.Q.Range);
             if (Config.LaneClear["useQLc"].Cast<CheckBox>().CurrentValue
                 && Player.Instance.ManaPercent >= Config.LaneClear["LcManager"].Cast<Slider>().CurrentValue
-                && !Spells.Q.IsReady()) return;           
+                && Spells.Q.IsReady()) return;           
             {
                 Spells.Q.Cast(minions.CastPosition);
             }
@@ -177,9 +177,8 @@ namespace UBSivir
         }
         public static void Useheal()
         {
-
             if (Config.ComboMenu["useheal"].Cast<CheckBox>().CurrentValue
-             && Player.Instance.HealthPercent < Config.ComboMenu["manageheal"].Cast<Slider>().CurrentValue
+             && Player.Instance.HealthPercent <= Config.ComboMenu["manageheal"].Cast<Slider>().CurrentValue
              && ObjectManager.Player.CountEnemiesInRange(900) >= 1
              && Spells.heal.IsReady())
             {
