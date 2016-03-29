@@ -63,9 +63,7 @@ namespace UBSivir
                 });
             BlockedSpells.Add(
                 "Diana",
-                new List<BlockedSpell> { new BlockedSpell("DianaBasicAttack3", "Moonsilver Blade", true), e, r });
-            BlockedSpells.Add(
-                "DrMundo", new List<BlockedSpell> { new BlockedSpell("MasochismAttack", "Empowered E", true) });
+                new List<BlockedSpell> { new BlockedSpell("DianaBasicAttack3", "Moonsilver Blade", true), e, r });          
             BlockedSpells.Add(
                 "Ekko",
                 new List<BlockedSpell>
@@ -132,7 +130,6 @@ namespace UBSivir
                 "Kennen", new List<BlockedSpell> { new BlockedSpell("KennenMegaProc", "Empowered", true), w });
             BlockedSpells.Add("Khazix", new List<BlockedSpell> { q });
             BlockedSpells.Add("Kindred", new List<BlockedSpell> { e });
-            //new BlockedSpell((SpellSlot) 48) { SpellName = "kindredbasicattackoverridelightbombfinal", Name = "Empowered E" } });
             BlockedSpells.Add("Leblanc", new List<BlockedSpell> { q, new BlockedSpell("LeblancChaosOrbM", "Block RQ") });
             BlockedSpells.Add(
                 "LeeSin",
@@ -150,11 +147,11 @@ namespace UBSivir
                 "Leona", new List<BlockedSpell> { new BlockedSpell("LeonaShieldOfDaybreakAttack", "Stun Q", true) });
             BlockedSpells.Add("Lissandra", new List<BlockedSpell> { new BlockedSpell(N48) { Name = "R" } });
             BlockedSpells.Add("Lulu", new List<BlockedSpell> { w });
-            BlockedSpells.Add("Malphite", new List<BlockedSpell> { q, e });
+            BlockedSpells.Add("Malphite", new List<BlockedSpell> { q, e, r });
             BlockedSpells.Add("Malzahar", new List<BlockedSpell> { e, r });
             BlockedSpells.Add("Maokai", new List<BlockedSpell> { w });
             BlockedSpells.Add(
-                "MasterYi", new List<BlockedSpell> { q, new BlockedSpell("MasterYiDoubleStrike", "Empowered", true) });
+                "MasterYi", new List<BlockedSpell> { q });
             BlockedSpells.Add("MissFortune", new List<BlockedSpell> { q });
             BlockedSpells.Add(
                 "MonkeyKing", new List<BlockedSpell> { new BlockedSpell("MonkeyKingQAttack", "Empowered Q", true), e });
@@ -163,7 +160,7 @@ namespace UBSivir
                 new List<BlockedSpell> { new BlockedSpell("mordekaiserqattack2", "Empowered Q", true), r });
             BlockedSpells.Add("Nami", new List<BlockedSpell> { w });
             BlockedSpells.Add(
-                "Nasus", new List<BlockedSpell> { new BlockedSpell("NasusQAttack", "Empowered Q", true), q });
+                "Nasus", new List<BlockedSpell> { new BlockedSpell("NasusQAttack", "Empowered Q", true) });
             BlockedSpells.Add(
                 "Nautilus",
                 new List<BlockedSpell> { new BlockedSpell("NautilusRavageStrikeAttack", "Empowered", true), e, r });
@@ -196,7 +193,7 @@ namespace UBSivir
                     e
                 });
             BlockedSpells.Add(
-                "Quinn", new List<BlockedSpell> { new BlockedSpell("QuinnWEnhanced", "Empowered", true), e });
+                "Quinn", new List<BlockedSpell> { e });
             BlockedSpells.Add("Rammus", new List<BlockedSpell> { e });
             BlockedSpells.Add(
                 "RekSai",
@@ -225,12 +222,6 @@ namespace UBSivir
             BlockedSpells.Add("Ryze", new List<BlockedSpell> { w, e });
             BlockedSpells.Add("Shaco", new List<BlockedSpell> { q, e });
             BlockedSpells.Add(
-                "Shen",
-                new List<BlockedSpell>
-                {
-                    new BlockedSpell("ShenQAttack", "Empowered", true) { BuffName = "shenqbuff", IsSelfBuff = true }
-                });
-            BlockedSpells.Add(
                 "Shyvana", new List<BlockedSpell> { new BlockedSpell("ShyvanaDoubleAttackHit", "Empowered Q", true) });
             BlockedSpells.Add("Singed", new List<BlockedSpell> { e });
             BlockedSpells.Add("Sion", new List<BlockedSpell> { q, r });
@@ -250,7 +241,7 @@ namespace UBSivir
             BlockedSpells.Add(
                 "Trundle", new List<BlockedSpell> { new BlockedSpell("TrundleQ", "Empowered Q", true), r });
             BlockedSpells.Add(
-                "TwistedFate", new List<BlockedSpell> { new BlockedSpell("goldcardpreattack", "Gold Card", true) });
+                "TwistedFate", new List<BlockedSpell> { new BlockedSpell("goldcardpreattack", "Gold Card", true), new BlockedSpell("redcardpreattack", "Red Card", true) });
             BlockedSpells.Add("Udyr", new List<BlockedSpell> { new BlockedSpell("UdyrBearAttack", "Bear", true) });
             BlockedSpells.Add("Urgot", new List<BlockedSpell> { r });
             BlockedSpells.Add(
