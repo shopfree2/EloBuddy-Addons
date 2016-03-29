@@ -56,8 +56,8 @@ namespace UBSivir
         {
             var minions = EntityManager.MinionsAndMonsters.GetLineFarmLocation(EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy, ObjectManager.Player.Position, Spells.Q.Range), Spells.Q.Width, (int)Spells.Q.Range);
             if (Config.LaneClear["useQLc"].Cast<CheckBox>().CurrentValue
-                && Player.Instance.ManaPercent > Config.LaneClear["LcManager"].Cast<Slider>().CurrentValue
-                && Spells.Q.IsReady()) return;           
+                && Player.Instance.ManaPercent >= Config.LaneClear["LcManager"].Cast<Slider>().CurrentValue
+                && !Spells.Q.IsReady()) return;           
             {
                 Spells.Q.Cast(minions.CastPosition);
             }

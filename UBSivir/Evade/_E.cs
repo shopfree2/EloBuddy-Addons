@@ -324,7 +324,7 @@ namespace UBSivir
             if (!Config.ShieldMenu["blockSpellsE"].Cast<CheckBox>().CurrentValue || !Spells.E.IsReady())
                 return;
 
-            foreach (var skillshot in Evade.Evade.GetSkillshotsAboutToHit(Player.Instance, (int)(Spells.E.CastDelay + Game.Ping / 2f)))
+            foreach (var skillshot in Evade.Evade.GetSkillshotsAboutToHit(Player.Instance, (int)(1250 + Game.Ping / 2f)))
             {
                 if (!Spells.E.IsReady())
                     return;
