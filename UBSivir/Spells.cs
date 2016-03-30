@@ -22,7 +22,7 @@ namespace UBSivir
             };
             W = new Spell.Active(SpellSlot.W, 750);
             E = new Spell.Active(SpellSlot.E);
-            E.CastDelay = 1250;
+            E.CastDelay = (int)1.25f;
             R = new Spell.Active(SpellSlot.R, 1000);
             var slot = ObjectManager.Player.GetSpellSlotFromName("summonerheal");
             if (slot != SpellSlot.Unknown)
