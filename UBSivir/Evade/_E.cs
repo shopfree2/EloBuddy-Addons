@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using UBsivir.Evade;
 
 namespace UBSivir
 {
@@ -324,7 +325,7 @@ namespace UBSivir
             if (!Config.ShieldMenu["blockSpellsE"].Cast<CheckBox>().CurrentValue || !Spells.E.IsReady())
                 return;
 
-            foreach (var skillshot in Evade.Evade.GetSkillshotsAboutToHit(Player.Instance, (int)(Spells.E.CastDelay + Game.Ping / 2f)))
+            foreach (var skillshot in Evade.Evade.GetSkillshotsAboutToHit(Player.Instance, (int)(Spells.E2.CastDelay + Game.Ping / 2f)))
             {
                 if (!Spells.E.IsReady())
                     return;
@@ -356,9 +357,8 @@ namespace UBSivir
                         continue;
                     if (!spell.PassesSpellCondition(skillshot.SpellData.SpellName))
                         continue;
-
-                    if (Spells.E.Cast())
-                        return;
+                    if (Config.ShieldMenu["blockSpellsE"].Cast<CheckBox>().CurrentValue)
+                    Spells.CastE2(skillshot.Unit);
                 }
             }
         }

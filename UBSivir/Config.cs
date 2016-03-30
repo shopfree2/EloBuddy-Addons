@@ -10,16 +10,16 @@ namespace UBSivir
 {
     class Config
     {
-        public static Menu Menu { get; private set; }
-        public static Menu ComboMenu { get; private set; }
-        public static Menu ShieldMenu { get; private set; }
-        public static Menu ShieldMenu2 { get; private set; }
-        public static Menu HarassMenu { get; private set; }
-        public static Menu LaneClear { get; private set; }
-        public static Menu JungleClear { get; private set; }
-        public static Menu LasthitMenu { get; private set; }
-        public static Menu MiscMenu { get; private set; }
-        public static Menu DrawMenu { get; private set; }
+        public static Menu Menu;
+        public static Menu ComboMenu;
+        public static Menu ShieldMenu;
+        public static Menu ShieldMenu2;
+        public static Menu HarassMenu;
+        public static Menu LaneClear;
+        public static Menu JungleClear;
+        public static Menu LasthitMenu;
+        public static Menu MiscMenu;
+        public static Menu DrawMenu;
 
         public static void Dattenosa()
         {
