@@ -51,6 +51,24 @@ namespace UBSivir.Evade
                     MissileSpellName = "AatroxEConeMissile",
                 });
 
+           /* Spells.Add(
+                 new SpellData
+                 {
+                     ChampionName = "Aatrox",
+                     SpellName = "AatroxR",
+                     Slot = SpellSlot.R,
+                     Type = SkillShotType.SkillshotTargeted,
+                     Delay = 250,
+                     Range = 1075,
+                     Radius = 35,
+                     MissileSpeed = 1250,
+                     FixedRange = true,
+                     AddHitbox = true,
+                     DangerValue = 3,
+                     IsDangerous = false,
+                     MissileSpellName = "AatroxEConeMissile",
+                 });*/
+
             #endregion Aatrox
 
             #region Ahri
@@ -126,6 +144,49 @@ namespace UBSivir.Evade
                 });
 
             #endregion Ahri
+
+            #region Alistar
+
+            Spells.Add(
+            new SpellData
+            {
+                ChampionName = "Alistar",
+                SpellName = "AlistarPulverize",
+                Slot = SpellSlot.Q,
+                Type = SkillShotType.SkillshotCircle,
+                Delay = 250,
+                Range = 0,
+                Radius = 365,
+                MissileSpeed = int.MaxValue,
+                FixedRange = true,
+                AddHitbox = false,
+                DangerValue = 3,
+                IsDangerous = true,
+                MissileSpellName = "",
+            });
+            #endregion Alistar
+
+            #region Akali
+
+            Spells.Add(
+            new SpellData
+            {
+                ChampionName = "Akali",
+                SpellName = "AkaliCrescentSlash",
+                Slot = SpellSlot.E,
+                Type = SkillShotType.SkillshotCircle,
+                Delay = 250,
+                Range = 0,
+                Radius = 325,
+                MissileSpeed = int.MaxValue,
+                FixedRange = true,
+                AddHitbox = false,
+                DangerValue = 2,
+                IsDangerous = false,
+                MissileSpellName = "",
+
+            });
+            #endregion Akali
 
             #region Amumu
 
@@ -278,6 +339,28 @@ namespace UBSivir.Evade
                 });
 
             #endregion Ashe
+
+            #region Azir
+
+            Spells.Add(
+            new SpellData
+            {
+                ChampionName = "Azir",
+                SpellName = "AzirEmperorDivide",
+                Slot = SpellSlot.R,
+                Type = SkillShotType.SkillshotMissileLine,
+                Delay = 500,
+                Range = 300,
+                Radius = 532,
+                MissileSpeed = 1000,
+                FixedRange = true,
+                AddHitbox = true,
+                DangerValue = 3,
+                IsDangerous = true,
+                MissileSpellName = "AzirWall",
+
+            });
+            #endregion Azir
 
             #region Bard
 
@@ -628,6 +711,24 @@ namespace UBSivir.Evade
                 new SpellData
                 {
                     ChampionName = "Darius",
+                    SpellName = "DariusDecimate",
+                    Slot = SpellSlot.Q,
+                    Type = SkillShotType.SkillshotCircle,
+                    Delay = 700,
+                    Range = 0,
+                    Radius = 425,
+                    MissileSpeed = int.MaxValue,
+                    FixedRange = true,
+                    AddHitbox = false,
+                    DangerValue = 3,
+                    IsDangerous = false,
+                    MissileSpellName = "",
+                });
+
+            Spells.Add(
+                new SpellData
+                {
+                    ChampionName = "Darius",
                     SpellName = "DariusAxeGrabCone",
                     Slot = SpellSlot.E,
                     Type = SkillShotType.SkillshotCone,
@@ -666,7 +767,25 @@ namespace UBSivir.Evade
                     CollisionObjects = new[] { CollisionObjectTypes.YasuoWall }
                 });
 
+            Spells.Add(
+                new SpellData
+                {
+                    ChampionName = "Diana",
+                    SpellName = "DianaMoonfall",
+                    Slot = SpellSlot.E,
+                    Type = SkillShotType.SkillshotCircle,
+                    Delay = 250,
+                    Range = 0,
+                    Radius = 350,
+                    MissileSpeed = int.MaxValue,
+                    FixedRange = true,
+                    AddHitbox = false,
+                    DangerValue = 3,
+                    IsDangerous = true,
+                });
+
             #endregion Diana
+
             #region DrMundo
 
             Spells.Add(
@@ -870,6 +989,23 @@ namespace UBSivir.Evade
                     CanBeRemoved = true,
                 });
 
+            Spells.Add(
+               new SpellData
+               {
+                   ChampionName = "Fizz",
+                   SpellName = "FizzPlayful",
+                   Slot = SpellSlot.E,
+                   Type = SkillShotType.SkillshotCircle,
+                   Delay = 250,
+                   Range = 0,
+                   Radius = 330,
+                   MissileSpeed = int.MaxValue,
+                   FixedRange = false,
+                   AddHitbox = true,
+                   DangerValue = 3,
+                   IsDangerous = false,                 
+               });
+
             #endregion Fizz
 
             #region Galio
@@ -930,6 +1066,10 @@ namespace UBSivir.Evade
                 });
 
             #endregion Galio
+
+            #region Gangplank
+            //Add E later
+            #endregion
 
             #region Gnar
 
@@ -1185,6 +1325,28 @@ namespace UBSivir.Evade
 
             #endregion Graves
 
+            #region Hecarim
+
+            Spells.Add(
+                new SpellData
+                {
+                    ChampionName = "Hecarim",
+                    SpellName = "HecarimR",
+                    Slot = SpellSlot.R,
+                    Type = SkillShotType.SkillshotMissileLine,
+                    Delay = 10,
+                    Range = 1500,
+                    Radius = 300,
+                    MissileSpeed = 1100,
+                    FixedRange = false,
+                    AddHitbox = true,
+                    DangerValue = 4,
+                    IsDangerous = true,
+                    MissileSpellName = "Hecarimultmissile",
+                });
+
+            #endregion 
+
             #region Heimerdinger
 
             Spells.Add(
@@ -1249,6 +1411,64 @@ namespace UBSivir.Evade
                 });
 
             #endregion Irelia
+
+            #region Illaoi
+
+            Spells.Add(
+            new SpellData
+            {
+                ChampionName = "Illaoi",
+                SpellName = "IllaoiQ",
+                Slot = SpellSlot.Q,
+                Type = SkillShotType.SkillshotLine,
+                Delay = 750,
+                Range = 850,
+                Radius = 100,
+                MissileSpeed = int.MaxValue,
+                FixedRange = true,
+                AddHitbox = true,
+                DangerValue = 3,
+                IsDangerous = false,
+                MissileSpellName = "IllaoiQMissile",
+            });
+
+            Spells.Add(
+            new SpellData
+            {
+                ChampionName = "Illaoi",
+                SpellName = "IllaoiQ",
+                Slot = SpellSlot.Q,
+                Type = SkillShotType.SkillshotMissileLine,
+                Delay = 250,
+                Range = 950,
+                Radius = 50,
+                MissileSpeed = 1900,
+                FixedRange = true,
+                AddHitbox = true,
+                DangerValue = 3,
+                IsDangerous = false,
+                MissileSpellName = "IllaoiEMissile",
+                CollisionObjects = new[] { CollisionObjectTypes.YasuoWall },
+            });
+
+            Spells.Add(
+           new SpellData
+           {
+               ChampionName = "Illaoi",
+               SpellName = "IllaoiR",
+               Slot = SpellSlot.R,
+               Type = SkillShotType.SkillshotCircle,
+               Delay = 500,
+               Range = 0,
+               Radius = 450,
+               MissileSpeed = int.MaxValue,
+               FixedRange = true,
+               AddHitbox = false,
+               DangerValue = 4,
+               IsDangerous = true,
+               MissileSpellName = "",
+            });
+            #endregion Illaoi
 
             #region Janna
 
@@ -1429,6 +1649,8 @@ namespace UBSivir.Evade
                         new[] { CollisionObjectTypes.Champions, CollisionObjectTypes.Minion, CollisionObjectTypes.YasuoWall },
                 });
 
+
+
             #endregion Kalista
 
             #region Karma
@@ -1526,7 +1748,8 @@ namespace UBSivir.Evade
                     MissileSpellName = "RiftWalk",
                 });
 
-            #endregion Kassadin
+            #endregion Kassadin 
+            //Add E soon
 
             #region Kennen
 
@@ -1765,6 +1988,25 @@ namespace UBSivir.Evade
                     CollisionObjects =
                         new[] { CollisionObjectTypes.Champions, CollisionObjectTypes.Minion, CollisionObjectTypes.YasuoWall },
                 });
+
+            Spells.Add(
+            new SpellData
+            {
+                ChampionName = "Leesin",
+                SpellName = "LeesinE",
+                Slot = SpellSlot.E,
+                Type = SkillShotType.SkillshotCircle,
+                Delay = 250,
+                Range = 0,
+                Radius = 350,
+                MissileSpeed = int.MaxValue,
+                FixedRange = true,
+                AddHitbox = false,
+                DangerValue = 3,
+                IsDangerous = false,
+                MissileSpellName = "",
+            });
+
 
             #endregion LeeSin
 
@@ -2039,6 +2281,24 @@ namespace UBSivir.Evade
             #region Malphite
 
             Spells.Add(
+            new SpellData
+            {
+                ChampionName = "Malphite",
+                SpellName = "MalphiteE",
+                Slot = SpellSlot.E,
+                Type = SkillShotType.SkillshotCircle,
+                Delay = 250,
+                Range = 0,
+                Radius = 200,
+                MissileSpeed = int.MaxValue,
+                FixedRange = true,
+                AddHitbox = false,
+                DangerValue = 2,
+                IsDangerous = false,
+                MissileSpellName = "",
+            });
+
+            Spells.Add(
                 new SpellData
                 {
                     ChampionName = "Malphite",
@@ -2080,6 +2340,28 @@ namespace UBSivir.Evade
                 });
 
             #endregion Malzahar
+
+            #region Mordekaiser
+
+            Spells.Add(
+                new SpellData
+                {
+                    ChampionName = "Mordekaiser",
+                    SpellName = "MordekaiserE",
+                    Slot = SpellSlot.E,
+                    Type = SkillShotType.SkillshotCone,
+                    Delay = 250,
+                    Range = 675,
+                    Radius = 80,
+                    MissileSpeed = int.MaxValue,
+                    FixedRange = false,
+                    AddHitbox = false,
+                    DangerValue = 2,
+                    IsDangerous = false,
+                    MissileSpellName = "",
+                });
+
+            #endregion Mordekaiser
 
             #region Morgana
 
@@ -2171,6 +2453,24 @@ namespace UBSivir.Evade
                     //walls?
                 });
 
+            Spells.Add(
+            new SpellData
+            {
+                ChampionName = "Nautilus",
+                SpellName = "NautilusE",
+                Slot = SpellSlot.E,
+                Type = SkillShotType.SkillshotCircle,
+                Delay = 250,
+                Range = 0,
+                Radius = 600,
+                MissileSpeed = 1300,
+                FixedRange = true,
+                AddHitbox = false,
+                DangerValue = 3,
+                IsDangerous = false,
+                MissileSpellName = "",
+            });
+
             #endregion Nautilus
 
             #region Nidalee
@@ -2197,6 +2497,29 @@ namespace UBSivir.Evade
                 });
 
             #endregion Nidalee
+            //Add Nidalee E cougar soon
+
+            #region Nocturne
+
+            Spells.Add(
+                new SpellData
+                {
+                    ChampionName = "Nocturne",
+                    SpellName = "NocturneR",
+                    Slot = SpellSlot.R,
+                    Type = SkillShotType.SkillshotCircle,
+                    Delay = 250,
+                    Range = 0,
+                    Radius = int.MaxValue,
+                    MissileSpeed = int.MaxValue,
+                    FixedRange = false,
+                    AddHitbox = false,
+                    DangerValue = 4,
+                    IsDangerous = false,
+                });
+
+            #endregion Nocturne
+
 
             #region Olaf
 
@@ -2395,9 +2718,45 @@ namespace UBSivir.Evade
                         new[] { CollisionObjectTypes.Champions, CollisionObjectTypes.Minion, CollisionObjectTypes.YasuoWall },
                 });
 
+            Spells.Add(
+            new SpellData
+            {
+                ChampionName = "Reksai",
+                SpellName = "ReksaiW",
+                Slot = SpellSlot.W,
+                Type = SkillShotType.SkillshotCircle,
+                Delay = 250,
+                Range = 0,
+                Radius = 365,
+                MissileSpeed = int.MaxValue,
+                FixedRange = true,
+                AddHitbox = false,
+                DangerValue = 3,
+                IsDangerous = true,
+                MissileSpellName = "",
+            });
+
             #endregion RekSai
 
             #region Riven
+
+            Spells.Add(
+            new SpellData
+            {
+                ChampionName = "Riven",
+                SpellName = "RivenW",
+                Slot = SpellSlot.W,
+                Type = SkillShotType.SkillshotCircle,
+                Delay = 250,
+                Range = 0,
+                Radius = 135,
+                MissileSpeed = int.MaxValue,
+                FixedRange = true,
+                AddHitbox = false,
+                DangerValue = 3,
+                IsDangerous = true,
+                MissileSpellName = "",
+            });
 
             Spells.Add(
                 new SpellData
@@ -2946,6 +3305,7 @@ namespace UBSivir.Evade
                     MissileSpellName = "ThreshEMissile1",
                 });
 
+
             #endregion Thresh
 
             #region Tristana
@@ -3492,6 +3852,41 @@ namespace UBSivir.Evade
                     MissileSpellName = "ZacQ",
                 });
 
+            Spells.Add(
+            new SpellData
+            {
+                ChampionName = "Zac",
+                SpellName = "ZacW",
+                Slot = SpellSlot.W,
+                Type = SkillShotType.SkillshotCircle,
+                Delay = 250,
+                Range = 0,
+                Radius = 355,
+                MissileSpeed = int.MaxValue,
+                FixedRange = true,
+                AddHitbox = false,
+                DangerValue = 1,
+                IsDangerous = false,
+                MissileSpellName = "",
+            });
+
+            Spells.Add(
+            new SpellData
+            {
+                ChampionName = "Zac",
+                SpellName = "ZacR",
+                Slot = SpellSlot.R,
+                Type = SkillShotType.SkillshotCircle,
+                Delay = 250,
+                Range = 0,
+                Radius = 400,
+                MissileSpeed = int.MaxValue,
+                FixedRange = true,
+                AddHitbox = false,
+                DangerValue = 5,
+                IsDangerous = true,
+                MissileSpellName = "",
+            });
             #endregion Zac
 
             #region Zed

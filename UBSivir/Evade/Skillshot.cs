@@ -15,6 +15,8 @@ namespace UBSivir.Evade
         SkillshotCone,
         SkillshotMissileCone,
         SkillshotRing,
+        SkillshotTargeted,
+        SkillshotActive,
     }
 
     public enum DetectionType

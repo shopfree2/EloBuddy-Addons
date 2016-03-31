@@ -36,66 +36,34 @@ namespace UBSivir
             BlockedSpells.Add("Alistar", new List<Block> { q, w });
             BlockedSpells.Add("Anivia", new List<Block> { e });
             BlockedSpells.Add("Annie", new List<Block> { q, w, r });
+            BlockedSpells.Add("Ashe", new List<Block> { w });
             BlockedSpells.Add("Azir", new List<Block> { r });
             BlockedSpells.Add("Bard", new List<Block> { r });
-            BlockedSpells.Add(
-                "Blitzcrank", new List<Block> { new Block("PowerFistAttack", "Power Fist", true) });
+            BlockedSpells.Add("Blitzcrank", new List<Block> { new Block("PowerFistAttack", "Power Fist", true), r });
             BlockedSpells.Add("Brand", new List<Block> { e, r });
-            BlockedSpells.Add(
-                "Braum", new List<Block> { new Block("BraumBasicAttackPassiveOverride", "Stun", true) });
-            BlockedSpells.Add(
-                "Caitlyn", new List<Block> { new Block("CaitlynHeadshotMissile", "Headshot", true), r });
+            BlockedSpells.Add("Braum", new List<Block> { new Block("BraumBasicAttackPassiveOverride", "Stun", true) });
+            BlockedSpells.Add("Caitlyn", new List<Block> { new Block("CaitlynHeadshotMissile", "Headshot", true), r });
             BlockedSpells.Add("Chogath", new List<Block> { r });
-            BlockedSpells.Add(
-                "Darius",
-                new List<Block>
-                {
-                    q,
-                    new Block("DariusNoxianTacticsONHAttack", "Empowered W", true),
-                    e,
-                    r
-                });
-            BlockedSpells.Add(
-                "Diana",
-                new List<Block> { new Block("DianaBasicAttack3", "Moonsilver Blade", true), e, r });          
-            BlockedSpells.Add(
-                "Ekko",
-                new List<Block>
-                {
-                    new Block("EkkoEAttack", "Empowered E", true),
-                    new Block("ekkobasicattackp3", "Third Proc Passive", true)
-                });
+            BlockedSpells.Add("Darius", new List<Block> { q, new Block("DariusNoxianTacticsONHAttack", "Empowered W", true), e, r });
+            BlockedSpells.Add("Diana", new List<Block> { e, r });          
+            BlockedSpells.Add("Ekko", new List<Block> { new Block("EkkoEAttack", "Empowered E", true), new Block("ekkobasicattackp3", "Third Proc Passive", true) });
             BlockedSpells.Add("Elise", new List<Block> { q });
-            BlockedSpells.Add("Evelynn", new List<Block> { e });
+            BlockedSpells.Add("Evelynn", new List<Block> { e, r });
             BlockedSpells.Add("FiddleSticks", new List<Block> { q, w, e });
-            BlockedSpells.Add(
-                "Fiora", new List<Block> { new Block("FioraEAttack", "Empowered First E", true) });
             BlockedSpells.Add("Fizz", new List<Block> { q, new Block("fizzjumptwo", "Second E") });
-            BlockedSpells.Add(
-                "Gangplank", new List<Block> { q, new Block((SpellSlot)45) { Name = "Barrel Q" } });
-            BlockedSpells.Add(
-                "Garen", new List<Block> { new Block("GarenQAttack", "Empowered Q", true), r });
-            BlockedSpells.Add(
-                "Gnar",
-                new List<Block>
-                {
-                    new Block("GnarBasicAttack", "Empowered W", true)
+            BlockedSpells.Add("Gangplank", new List<Block> { q, new Block((SpellSlot)45) { Name = "Barrel Q" } });
+            BlockedSpells.Add("Garen", new List<Block> { new Block("GarenQAttack", "Empowered Q", true), r });
+            BlockedSpells.Add("Gnar", new List<Block> { new Block("GnarBasicAttack", "Empowered W", true)
                     {
                         BuffName = "gnarwproc",
                         IsPlayerBuff = true
-                    }
-                });
-            BlockedSpells.Add(
-                "Gragas", new List<Block> { new Block("DrunkenRage", "Drunken Rage", true) });
-            BlockedSpells.Add(
-                "Hecarim", new List<Block> { new Block("hecarimrampattack", "Empowered E", true), r });
-            BlockedSpells.Add(
-                "Illaoi", new List<Block> { new Block("illaoiwattack", "Empowered W", true) });
+                    }, r });
+            BlockedSpells.Add("Gragas", new List<Block> { new Block("DrunkenRage", "Drunken Rage", true), r });
+            BlockedSpells.Add("Hecarim", new List<Block> { new Block("hecarimrampattack", "Empowered E", true), r });
+            BlockedSpells.Add("Illaoi", new List<Block> { new Block("illaoiwattack", "Empowered W", true), r });
             BlockedSpells.Add("Irelia", new List<Block> { q, e });
             BlockedSpells.Add("Janna", new List<Block> { w });
-            BlockedSpells.Add(
-                "JarvanIV",
-                new List<Block> { new Block("JarvanIVMartialCadenceAttack", "Martial Cadence", true), r });
+            BlockedSpells.Add("JarvanIV",new List<Block> { new Block("JarvanIVMartialCadenceAttack", "Martial Cadence", true), e , r });
             BlockedSpells.Add(
                 "Jax",
                 new List<Block>
@@ -108,23 +76,19 @@ namespace UBSivir
                     q
                     //new BlockedSpell(SpellSlot.E) { BuffName = "JaxCounterStrike", IsSelfBuff = true }
                 });
-            BlockedSpells.Add(
-                "Jayce",
-                new List<Block>
+            BlockedSpells.Add("Jayce", new List<Block>
                 {
                     new Block("JayceToTheSkies", "Hammer Q"),
                     new Block("JayceThunderingBlow", "Hammer E")
                 });
             BlockedSpells.Add("Jhin", new List<Block> { q, new Block("JhinPassiveAttack", "4th", true) });
-            BlockedSpells.Add(
-                "Kassadin", new List<Block> { q, new Block("KassadinBasicAttack3", "Empowered W", true) });
+            BlockedSpells.Add("Kassadin", new List<Block> { q, new Block("KassadinBasicAttack3", "Empowered W", true) });
             BlockedSpells.Add("Katarina", new List<Block> { e });
             BlockedSpells.Add("Kayle", new List<Block> { q });
-            BlockedSpells.Add(
-                "Kennen", new List<Block> { new Block("KennenMegaProc", "Empowered", true), w });
+            BlockedSpells.Add("Kennen", new List<Block> { new Block("KennenMegaProc", "Empowered", true), w });
             BlockedSpells.Add("Khazix", new List<Block> { q });
             BlockedSpells.Add("Kindred", new List<Block> { e });
-            BlockedSpells.Add("Leblanc", new List<Block> { q, new Block("LeblancChaosOrbM", "Block RQ") });
+            BlockedSpells.Add("Leblanc", new List<Block> { q, new Block("LeblancChaosOrbM", "Block RQ"), w, new Block("LeblancSlideM", "Block RW") });
             BlockedSpells.Add(
                 "LeeSin",
                 new List<Block>
@@ -149,8 +113,8 @@ namespace UBSivir
             BlockedSpells.Add("MissFortune", new List<Block> { q });
             BlockedSpells.Add(
                 "Mordekaiser",
-                new List<Block> { new Block("mordekaiserqattack2", "Empowered Q", true), r });
-            BlockedSpells.Add("Nami", new List<Block> { w });
+                new List<Block> { new Block("mordekaiserqattack2", "Empowered Q", true), e, r });
+            BlockedSpells.Add("Nami", new List<Block> { w, r });
             BlockedSpells.Add(
                 "Nasus", new List<Block> { new Block("NasusQAttack", "Empowered Q", true) });
             BlockedSpells.Add(
@@ -172,6 +136,7 @@ namespace UBSivir
             BlockedSpells.Add("Nocturne", new List<Block> { r });
             BlockedSpells.Add("Nunu", new List<Block> { e });
             BlockedSpells.Add("Olaf", new List<Block> { e });
+            BlockedSpells.Add("Oriana", new List<Block> { w, r});
             BlockedSpells.Add("Pantheon", new List<Block> { q, w });
             BlockedSpells.Add(
                 "Poppy",
@@ -209,15 +174,19 @@ namespace UBSivir
                 new List<Block>
                 {
                     new Block(SpellSlot.Q) { Name = "Third Q", BuffName = "RivenTriCleave", IsSelfBuff = true },
-                    w
+                    w, r
                 });
             BlockedSpells.Add("Ryze", new List<Block> { w, e });
-            BlockedSpells.Add("Shaco", new List<Block> { q, e });
+            BlockedSpells.Add("Sejuani", new List<Block> { r });
+            BlockedSpells.Add("Shaco", new List<Block> { e });
             BlockedSpells.Add(
                 "Shyvana", new List<Block> { new Block("ShyvanaDoubleAttackHit", "Empowered Q", true) });
             BlockedSpells.Add("Singed", new List<Block> { e });
             BlockedSpells.Add("Sion", new List<Block> { q, r });
+            BlockedSpells.Add("Shen", new List<Block> { e });
+            BlockedSpells.Add("Shyvana", new List<Block> { r });
             BlockedSpells.Add("Skarner", new List<Block> { r });
+            BlockedSpells.Add("Sona", new List<Block> { r });
             BlockedSpells.Add("Syndra", new List<Block> { r });
             BlockedSpells.Add("Swain", new List<Block> { q, e });
             BlockedSpells.Add(
@@ -225,10 +194,12 @@ namespace UBSivir
                 new List<Block>
                 {
                     new Block("TalonNoxianDiplomacyAttack", "Empowered Q") { IsAutoAttack = true },
+                    w,
                     e
                 });
             BlockedSpells.Add("Taric", new List<Block> { e });
             BlockedSpells.Add("Teemo", new List<Block> { q });
+            BlockedSpells.Add("Thresh", new List<Block> { e });
             BlockedSpells.Add("Tristana", new List<Block> { e, r });
             BlockedSpells.Add(
                 "Trundle", new List<Block> { new Block("TrundleQ", "Empowered Q", true), r });
@@ -249,7 +220,7 @@ namespace UBSivir
                     },
                     e
                 });
-            BlockedSpells.Add("Veigar", new List<Block> { r });
+            BlockedSpells.Add("Veigar", new List<Block> { e, r });
             BlockedSpells.Add(
                 "Vi",
                 new List<Block>
@@ -288,7 +259,9 @@ namespace UBSivir
                     e
                 });
             BlockedSpells.Add("Zac", new List<Block> { w, r });
+            BlockedSpells.Add("Ziggs", new List<Block> { r });
             BlockedSpells.Add("Zilean", new List<Block> { e });
+            BlockedSpells.Add("Zyra", new List<Block> { r });
 
             var enemies = EntityManager.Heroes.Enemies;
 
