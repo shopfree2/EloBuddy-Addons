@@ -26,8 +26,8 @@ namespace UBSivir
             if (Config.ComboMenu["useRCombo"].Cast<CheckBox>().CurrentValue
                       && Spells.R.IsReady())
             {               
-                if (ObjectManager.Player.Position.CountAlliesInRange(1000) >= (Config.ComboMenu["RhitCombo"].Cast<Slider>().CurrentValue +1)
-                  && ObjectManager.Player.Position.CountEnemiesInRange(2000) >= Config.ComboMenu["RhitCombo"].Cast<Slider>().CurrentValue)
+                if (ObjectManager.Player.Position.CountAlliesInRange(1000) >= (Config.ComboMenu["RHitCombo"].Cast<Slider>().CurrentValue +1)
+                  && ObjectManager.Player.Position.CountEnemiesInRange(2000) >= Config.ComboMenu["RHitCombo"].Cast<Slider>().CurrentValue)
                 {
                     Spells.R.Cast();
                 }
@@ -38,12 +38,24 @@ namespace UBSivir
         {
             if (Config.HarassMenu["useQHr"].Cast<CheckBox>().CurrentValue
                 && Spells.Q.IsReady()
-                && !Player.Instance.IsDashing())
+                && !Player.Instance.IsDashing()
+                && Config.HarassMenu["useQHr2"].Cast<CheckBox>().CurrentValue == false)
             {
                 var target = TargetSelector.GetTarget(Spells.Q.Range, DamageType.Physical);
                 if (target != null && target.IsValidTarget())
                 {
                     Spells.Q.Cast(target);
+                }
+            }
+            else if (Config.HarassMenu["useQHr"].Cast<CheckBox>().CurrentValue
+                && Spells.QLine.IsReady()
+                && !Player.Instance.IsDashing()
+                && Config.HarassMenu["useQhr2"].Cast<CheckBox>().CurrentValue == true)
+            {
+                var target = TargetSelector.GetTarget(Spells.QLine.Range, DamageType.Physical);
+                if (target != null && target.IsValidTarget())
+                {
+                    Spells.QLine.Cast(target);
                 }
             }
             if (Config.HarassMenu["useWHr"].Cast<CheckBox>().CurrentValue)
@@ -57,7 +69,7 @@ namespace UBSivir
             var minions = EntityManager.MinionsAndMonsters.GetLineFarmLocation(EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy, ObjectManager.Player.Position, Spells.Q.Range), Spells.Q.Width, (int)Spells.Q.Range);
             if (Config.LaneClear["useQLc"].Cast<CheckBox>().CurrentValue
                 && Player.Instance.ManaPercent >= Config.LaneClear["LcManager"].Cast<Slider>().CurrentValue
-                && Spells.Q.IsReady()) return;           
+                && Spells.Q.IsReady())           
             {
                 Spells.Q.Cast(minions.CastPosition);
             }

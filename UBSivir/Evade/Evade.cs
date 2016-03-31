@@ -4,7 +4,6 @@ using System.Linq;
 using EloBuddy;
 using EloBuddy.SDK;
 using SharpDX;
-using UBsivir.Evade;
 
 namespace UBSivir.Evade
 {
@@ -15,23 +14,8 @@ namespace UBSivir.Evade
         public static Vector2 PlayerPosition
         {
             get { return Player.Instance.ServerPosition.To2D(); }
-        }    
-
-        static Evade()
-        {
-            Collision.Initialize();
-            Game.OnUpdate += args =>
-            {
-                DetectedSkillshots.RemoveAll(i => !i.IsActive());
-
-                foreach (var skillshot in DetectedSkillshots)
-                {
-                    skillshot.Game_OnGameUpdate();
-                }
-            };
-
-            SkillshotDetector.OnDetectSkillshot += OnDetectSkillshot;
         }
+
         private static void OnDetectSkillshot(Skillshot skillshot)
         {
             var alreadyAdded = false;
@@ -230,6 +214,23 @@ namespace UBSivir.Evade
             }
             DetectedSkillshots.Add(skillshot);
         }
+
+        static Evade()
+        {
+            Collision.Initialize();
+            Game.OnUpdate += args =>
+                {
+                    DetectedSkillshots.RemoveAll(i => !i.IsActive());
+
+                    foreach (var skillshot in DetectedSkillshots)
+                    {
+                        skillshot.Game_OnGameUpdate();
+                    }
+                };
+
+            SkillshotDetector.OnDetectSkillshot += OnDetectSkillshot;
+        }
+
         public static void Initialize()
         { }
 

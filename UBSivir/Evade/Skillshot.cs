@@ -4,9 +4,8 @@ using System.Linq;
 using EloBuddy;
 using EloBuddy.SDK;
 using SharpDX;
-using UBSivir.Evade;
 
-namespace UBsivir.Evade
+namespace UBSivir.Evade
 {
     public enum SkillShotType
     {
@@ -56,21 +55,21 @@ namespace UBsivir.Evade
 
     public class Skillshot
     {
-        public UBSivir.Evade.Geometry.Circle Circle;
+        public Geometry.Circle Circle;
         public DetectionType DetectionType;
         public Vector2 Direction;
-        public UBSivir.Evade.Geometry.Polygon DrawingPolygon;
+        public Geometry.Polygon DrawingPolygon;
 
         public Vector2 End;
 
         public bool ForceDisabled;
         public Vector2 MissilePosition;
-        public UBSivir.Evade.Geometry.Polygon Polygon;
-        public UBSivir.Evade.Geometry.Rectangle Rectangle;
-        public UBSivir.Evade.Geometry.Ring Ring;
-        public UBSivir.Evade.Geometry.Sector Sector;
+        public Geometry.Polygon Polygon;
+        public Geometry.Rectangle Rectangle;
+        public Geometry.Ring Ring;
+        public Geometry.Sector Sector;
 
-        public UBSivir.Evade.SpellData SpellData;
+        public SpellData SpellData;
         public Vector2 Start;
         public int StartTick;
 
@@ -78,7 +77,7 @@ namespace UBsivir.Evade
         private int _lastCollisionCalc;
 
         public Skillshot(DetectionType detectionType,
-            UBSivir.Evade.SpellData spellData,
+            SpellData spellData,
             int startT,
             Vector2 start,
             Vector2 end,
@@ -94,27 +93,28 @@ namespace UBsivir.Evade
 
             Unit = unit;
 
+            //Create the spatial object for each type of skillshot.
             switch (spellData.Type)
             {
                 case SkillShotType.SkillshotCircle:
-                    Circle = new UBSivir.Evade.Geometry.Circle(CollisionEnd, spellData.Radius);
+                    Circle = new Geometry.Circle(CollisionEnd, spellData.Radius);
                     break;
                 case SkillShotType.SkillshotLine:
-                    Rectangle = new UBSivir.Evade.Geometry.Rectangle(Start, CollisionEnd, spellData.Radius);
+                    Rectangle = new Geometry.Rectangle(Start, CollisionEnd, spellData.Radius);
                     break;
                 case SkillShotType.SkillshotMissileLine:
-                    Rectangle = new UBSivir.Evade.Geometry.Rectangle(Start, CollisionEnd, spellData.Radius);
+                    Rectangle = new Geometry.Rectangle(Start, CollisionEnd, spellData.Radius);
                     break;
                 case SkillShotType.SkillshotCone:
-                    Sector = new UBSivir.Evade.Geometry.Sector(
+                    Sector = new Geometry.Sector(
                         start, CollisionEnd - start, spellData.Radius * (float)Math.PI / 180, spellData.Range);
                     break;
                 case SkillShotType.SkillshotRing:
-                    Ring = new UBSivir.Evade.Geometry.Ring(CollisionEnd, spellData.Radius, spellData.RingRadius);
+                    Ring = new Geometry.Ring(CollisionEnd, spellData.Radius, spellData.RingRadius);
                     break;
             }
 
-            UpdatePolygon(); 
+            UpdatePolygon(); //Create the polygon.
         }
 
         public Vector2 Perpendicular
@@ -147,9 +147,19 @@ namespace UBsivir.Evade
             get { return SpellData.RawRange == 20000; }
         }
 
-        public UBSivir.Evade.Geometry.Polygon EvadePolygon { get; set; }
+        public Geometry.Polygon EvadePolygon { get; set; }
         public Obj_AI_Base Unit { get; set; }
 
+        //public T ConfigValue<T>(string name)
+        //{
+        //    return Config.Menu.Item(name + SpellData.MenuItemName).ConfigValue<T>();
+        //}
+        /// <summary>
+        ///     Returns the value from this skillshot menu.
+        /// </summary>
+        /// <summary>
+        ///     Returns if the skillshot has expired.
+        /// </summary>
         public bool IsActive()
         {
             if (SpellData.MissileAccel != 0)
@@ -162,21 +172,49 @@ namespace UBsivir.Evade
                    1000 * (Start.Distance(End) / SpellData.MissileSpeed);
         }
 
+        //public bool Evade()
+        //{
+        //    if (ForceDisabled)
+        //    {
+        //        return false;
+        //    }
+        //    if (Environment.TickCount - _cachedValueTick < 100)
+        //    {
+        //        return _cachedValue;
+        //    }
+
+        //    if (!ConfigValue<bool>("IsDangerous") && Config.Menu.Item("OnlyDangerous").ConfigValue<KeyBind>().Active)
+        //    {
+        //        _cachedValue = false;
+        //        _cachedValueTick = Environment.TickCount;
+        //        return _cachedValue;
+        //    }
+
+
+        //    _cachedValue = ConfigValue<bool>("Enabled");
+        //    _cachedValueTick = Environment.TickCount;
+
+        //    return _cachedValue;
+        //}
+
         public void Game_OnGameUpdate()
-        {           
+        {
+            //Even if it doesnt consume a lot of resources with 20 updatest second works k
             if (SpellData.CollisionObjects.Count() > 0 && SpellData.CollisionObjects != null &&
                 Environment.TickCount - _lastCollisionCalc > 50)
             {
                 _lastCollisionCalc = Environment.TickCount;
-                _collisionEnd = UBSivir.Evade.Collision.GetCollisionPoint(this);
+                _collisionEnd = Collision.GetCollisionPoint(this);
             }
 
+            //Update the missile position each time the game updates.
             if (SpellData.Type == SkillShotType.SkillshotMissileLine)
             {
-                Rectangle = new UBSivir.Evade.Geometry.Rectangle(GetMissilePosition(0), CollisionEnd, SpellData.Radius);
+                Rectangle = new Geometry.Rectangle(GetMissilePosition(0), CollisionEnd, SpellData.Radius);
                 UpdatePolygon();
             }
 
+            //Spells that update to the unit position.
             if (SpellData.MissileFollowsUnit)
             {
                 if (Unit.IsVisible)
@@ -232,6 +270,9 @@ namespace UBsivir.Evade
             }
         }
 
+        /// <summary>
+        ///     Returns the missile position after time time.
+        /// </summary>
         public Vector2 GlobalGetMissilePosition(int time)
         {
             var t = Math.Max(0, Environment.TickCount + time - StartTick - SpellData.Delay);
@@ -239,6 +280,9 @@ namespace UBsivir.Evade
             return Start + Direction * t;
         }
 
+        /// <summary>
+        ///     Returns the missile position after time time.
+        /// </summary>
         public Vector2 GetMissilePosition(int time)
         {
             var t = Math.Max(0, Environment.TickCount + time - StartTick - SpellData.Delay);
@@ -246,11 +290,13 @@ namespace UBsivir.Evade
 
             var x = 0;
 
+            //Missile with acceleration = 0.
             if (SpellData.MissileAccel == 0)
             {
                 x = t * SpellData.MissileSpeed / 1000;
             }
 
+                //Missile with constant acceleration.
             else
             {
                 var t1 = (SpellData.MissileAccel > 0
@@ -279,6 +325,9 @@ namespace UBsivir.Evade
         }
 
 
+        /// <summary>
+        ///     Returns if the skillshot will hit you when trying to blink to the point.
+        /// </summary>
         public bool IsSafeToBlink(Vector2 point, int timeOffset, int delay = 0)
         {
             timeOffset /= 2;
@@ -288,6 +337,7 @@ namespace UBsivir.Evade
                 return true;
             }
 
+            //Skillshots with missile
             if (SpellData.Type == SkillShotType.SkillshotMissileLine)
             {
                 var missilePositionAfterBlink = GetMissilePosition(delay + timeOffset);
@@ -302,6 +352,7 @@ namespace UBsivir.Evade
                 return true;
             }
 
+            //skillshots without missile
             var timeToExplode = SpellData.ExtraDuration + SpellData.Delay +
                                 (int)(1000 * Start.Distance(End) / SpellData.MissileSpeed) -
                                 (Environment.TickCount - StartTick);
@@ -309,6 +360,9 @@ namespace UBsivir.Evade
             return timeToExplode > timeOffset + delay;
         }
 
+        /// <summary>
+        ///     Returns if the skillshot will hit the unit if the unit follows the path.
+        /// </summary>
         public SafePathResult IsSafePath(List<Vector2> path,
             int timeOffset,
             int speed = -1,
@@ -356,11 +410,14 @@ namespace UBsivir.Evade
                 Distance += from.Distance(to);
             }
 
+            //Skillshot with missile.
             if (SpellData.Type == SkillShotType.SkillshotMissileLine ||
                 SpellData.Type == SkillShotType.SkillshotMissileCone)
             {
+                //Outside the skillshot
                 if (IsSafe(ObjectManager.Player.ServerPosition.To2D()))
-                {                  
+                {
+                    //No intersections -> Safe
                     if (allIntersections.Count == 0)
                     {
                         return new SafePathResult(true, new FoundIntersection());
@@ -371,6 +428,7 @@ namespace UBsivir.Evade
                         var enterIntersection = allIntersections[i];
                         var enterIntersectionProjection = enterIntersection.Point.ProjectOn(Start, End).SegmentPoint;
 
+                        //Intersection with no exit point.
                         if (i == allIntersections.Count - 1)
                         {
                             var missilePositionOnIntersection =
@@ -389,6 +447,7 @@ namespace UBsivir.Evade
                         var missilePosOnEnter = GetMissilePosition(enterIntersection.Time - timeOffset);
                         var missilePosOnExit = GetMissilePosition(exitIntersection.Time + timeOffset);
 
+                        //Missile didnt pass.
                         if (missilePosOnEnter.Distance(End) + 50 > enterIntersectionProjection.Distance(End))
                         {
                             if (missilePosOnExit.Distance(End) <= exitIntersectionProjection.Distance(End))
@@ -400,6 +459,7 @@ namespace UBsivir.Evade
 
                     return new SafePathResult(true, allIntersections[0]);
                 }
+                //Inside the skillshot.
                 if (allIntersections.Count == 0)
                 {
                     return new SafePathResult(false, new FoundIntersection());
@@ -407,6 +467,7 @@ namespace UBsivir.Evade
 
                 if (allIntersections.Count > 0)
                 {
+                    //Check only for the exit point
                     var exitIntersection = allIntersections[0];
                     var exitIntersectionProjection = exitIntersection.Point.ProjectOn(Start, End).SegmentPoint;
 
@@ -466,6 +527,7 @@ namespace UBsivir.Evade
             return !IsSafe(point);
         }
 
+        //Returns if the skillshot is about to hit the unit in the next time seconds.
         public bool IsAboutToHit(int time, Obj_AI_Base unit)
         {
             if (SpellData.Type == SkillShotType.SkillshotMissileLine)
@@ -473,6 +535,7 @@ namespace UBsivir.Evade
                 var missilePos = GetMissilePosition(0);
                 var missilePosAfterT = GetMissilePosition(time);
 
+                //TODO: Check for minion collision etc.. in the future.
                 var projection = unit.ServerPosition.To2D()
                     .ProjectOn(missilePos, missilePosAfterT);
 

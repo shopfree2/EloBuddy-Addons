@@ -115,7 +115,7 @@ namespace UBSivir.Evade
             };
         }
 
-        public static Vector2 GetCollisionPoint(UBsivir.Evade.Skillshot skillshot)
+        public static Vector2 GetCollisionPoint(Skillshot skillshot)
         {
             var collisions = new List<DetectedCollision>();
             var from = skillshot.GetMissilePosition(0);
@@ -245,7 +245,7 @@ namespace UBSivir.Evade
                                              (1000 * intersection.Distance(from)) / skillshot.SpellData.MissileSpeed;
                             if (collisionT - WallCastT < 4000)
                             {
-                                if (skillshot.SpellData.Type != UBsivir.Evade.SkillShotType.SkillshotMissileLine)
+                                if (skillshot.SpellData.Type != SkillShotType.SkillshotMissileLine)
                                 {
                                     skillshot.ForceDisabled = true;
                                 }

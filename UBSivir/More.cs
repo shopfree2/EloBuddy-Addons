@@ -27,8 +27,7 @@ namespace UBSivir
         private static void InitEvents()
         {           
             Game.OnTick += GameOnTick;
-            Drawing.OnDraw += OnDraw;
-            Game.OnUpdate += On_Update;
+            Drawing.OnDraw += OnDraw;          
         }
         private static void On_Update(EventArgs args)
         {         

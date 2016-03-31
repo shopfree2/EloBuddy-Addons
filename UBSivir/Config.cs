@@ -33,7 +33,7 @@ namespace UBSivir
             {
                 ComboMenu.AddGroupLabel("Combo Settings");
                 ComboMenu.Add("useQCombo", new CheckBox("Use Q"));
-                ComboMenu.Add("AutoQ", new CheckBox("Auto Q if target in immobilize(soon)", false));
+                ComboMenu.Add("AutoQ", new CheckBox("Auto Q if target in immobilize"));
                 ComboMenu.Add("useWCombo", new CheckBox("Use W"));
                 ComboMenu.Add("useRCombo", new CheckBox("Use R"));
                 ComboMenu.Add("RHitCombo", new Slider("Use R if buff {0} ally & you in combo mode", 4, 1, 4));
@@ -68,6 +68,7 @@ namespace UBSivir
             {
                 HarassMenu.AddGroupLabel("Harass Settings");
                 HarassMenu.Add("useQHr", new CheckBox("Use Q"));
+                HarassMenu.Add("useQHr2", new CheckBox("Only use Q if no minion between"));
                 HarassMenu.Add("useWHr", new CheckBox("Use W"));               
                 HarassMenu.Add("HrManage", new Slider("If mana percent below {0} stop harass", 50));
             }

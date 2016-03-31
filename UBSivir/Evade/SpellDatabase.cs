@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using EloBuddy;
-using UBsivir.Evade;
 
 namespace UBSivir.Evade
 {
@@ -12,6 +11,7 @@ namespace UBSivir.Evade
 
         static SpellDatabase()
         {
+            //Add spells to the database 
 
             #region Aatrox
 
