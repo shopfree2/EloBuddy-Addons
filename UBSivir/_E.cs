@@ -135,7 +135,6 @@ namespace UBSivir
                 });
             BlockedSpells.Add("Nocturne", new List<Block> { r });
             BlockedSpells.Add("Nunu", new List<Block> { e });
-            BlockedSpells.Add("Olaf", new List<Block> { e });
             BlockedSpells.Add("Oriana", new List<Block> { w, r});
             BlockedSpells.Add("Pantheon", new List<Block> { q, w });
             BlockedSpells.Add(
@@ -174,17 +173,17 @@ namespace UBSivir
                 new List<Block>
                 {
                     new Block(SpellSlot.Q) { Name = "Third Q", BuffName = "RivenTriCleave", IsSelfBuff = true },
-                    w, r
+                    w, 
+                    r
                 });
             BlockedSpells.Add("Ryze", new List<Block> { w, e });
             BlockedSpells.Add("Sejuani", new List<Block> { r });
             BlockedSpells.Add("Shaco", new List<Block> { e });
             BlockedSpells.Add(
-                "Shyvana", new List<Block> { new Block("ShyvanaDoubleAttackHit", "Empowered Q", true) });
+                "Shyvana", new List<Block> { new Block("ShyvanaDoubleAttackHit", "Empowered Q", true), r });
             BlockedSpells.Add("Singed", new List<Block> { e });
             BlockedSpells.Add("Sion", new List<Block> { q, r });
             BlockedSpells.Add("Shen", new List<Block> { e });
-            BlockedSpells.Add("Shyvana", new List<Block> { r });
             BlockedSpells.Add("Skarner", new List<Block> { r });
             BlockedSpells.Add("Sona", new List<Block> { r });
             BlockedSpells.Add("Syndra", new List<Block> { r });
