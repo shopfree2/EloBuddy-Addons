@@ -43,6 +43,7 @@ namespace UBSivir
             BlockedSpells.Add("Brand", new List<Block> { e, r });
             BlockedSpells.Add("Braum", new List<Block> { new Block("BraumBasicAttackPassiveOverride", "Stun", true) });
             BlockedSpells.Add("Caitlyn", new List<Block> { new Block("CaitlynHeadshotMissile", "Headshot", true), r });
+            BlockedSpells.Add("Cassiopeia", new List<Block> { r });
             BlockedSpells.Add("Chogath", new List<Block> { r });
             BlockedSpells.Add("Darius", new List<Block> { q, new Block("DariusNoxianTacticsONHAttack", "Empowered W", true), e, r });
             BlockedSpells.Add("Diana", new List<Block> { e, r });          
@@ -314,8 +315,10 @@ namespace UBSivir
                         continue;
                     if (!spell.PassesSpellCondition(skillshot.SpellData.SpellName))
                         continue;
-                    if (Config.ShieldMenu["blockSpellsE"].Cast<CheckBox>().CurrentValue)                    
-                    Spells.E.Cast();
+                    if (Config.ShieldMenu["blockSpellsE"].Cast<CheckBox>().CurrentValue == true)
+                    {
+                        Spells.E.Cast();
+                    }
                 }
             }
         }

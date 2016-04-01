@@ -131,5 +131,9 @@ namespace UBSivir
                 MiscMenu.Add("Modskinid", new Slider("Mod Skin", 5, 0, 8));
             }
         }
+        public static bool BlockSpells
+        {
+            get { return ShieldMenu["blockSpellsE"].Cast<CheckBox>().CurrentValue; }
+        }
     }
 }

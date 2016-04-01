@@ -21,7 +21,8 @@ namespace UBSivir
             _E_Advance.Initialize();
             Spells.InitSpells();
             Items.InitItems();   
-            InitEvents();           
+            InitEvents();
+            Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;   
         }
 
         private static void InitEvents()
@@ -74,6 +75,131 @@ namespace UBSivir
                 Circle.Draw(Spells.R.IsLearned ? Color.Yellow : Color.Zero, Spells.R.Range, Player.Instance.Position);
             }
         }
+        private static void OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        {
+            var unit = sender as AIHeroClient;
+            if (unit == null || !unit.IsValid)
+            {
+                return;
+            }
 
+            if (!unit.IsEnemy || !Config.BlockSpells || !Spells.E.IsReady())
+            {
+                return;
+            }
+
+            // spell handled by evade
+            if (UBSivir.Evade.SpellDatabase.GetByName(args.SData.Name) != null && !Config.BlockSpells)
+                return;
+
+            if (!_E.Contains(unit, args))
+                return;
+
+            if (args.End.Distance(Player.Instance) == 0)
+                return;
+
+            var type = args.SData.TargettingType;
+
+            if (unit.ChampionName.Equals("Caitlyn") && args.Slot == SpellSlot.Q)
+            {
+                Core.DelayAction(() => Spells.E.Cast(),
+                    (int)(args.Start.Distance(Player.Instance) / args.SData.MissileSpeed * 1000) -
+                    (int)(args.End.Distance(Player.Instance) / args.SData.MissileSpeed) - 500);
+            }
+            if (unit.ChampionName.Equals("Zyra"))
+            {
+                Core.DelayAction(() => Spells.E.Cast(),
+                    (int)(args.Start.Distance(Player.Instance) / args.SData.MissileSpeed * 1000) -
+                    (int)(args.End.Distance(Player.Instance) / args.SData.MissileSpeed) - 500);
+            }
+            if (args.End.Distance(Player.Instance) < 250)
+            {
+                if (unit.ChampionName.Equals("Bard") && args.End.Distance(Player.Instance) < 300)
+                {
+                    Core.DelayAction(() => Spells.E.Cast(), (int)(unit.Distance(Player.Instance) / 7f) + 400);
+                }
+                else if (unit.ChampionName.Equals("Ashe"))
+                {
+                    Core.DelayAction(() => Spells.E.Cast(),
+                        (int)(args.Start.Distance(Player.Instance) / args.SData.MissileSpeed * 1000) -
+                        (int)args.End.Distance(Player.Instance));
+                    return;
+                }
+                else if (unit.ChampionName.Equals("Varus") || unit.ChampionName.Equals("TahmKench") ||
+                         unit.ChampionName.Equals("Lux"))
+                {
+                    Core.DelayAction(() => Spells.E.Cast(),
+                        (int)(args.Start.Distance(Player.Instance) / args.SData.MissileSpeed * 1000) -
+                        (int)(args.End.Distance(Player.Instance) / args.SData.MissileSpeed) - 500);
+                }
+                else if (unit.ChampionName.Equals("Amumu"))
+                {
+                    if (sender.Distance(Player.Instance) < 1100)
+                        Core.DelayAction(() => Spells.E.Cast(),
+                            (int)(args.Start.Distance(Player.Instance) / args.SData.MissileSpeed * 1000) -
+                            (int)(args.End.Distance(Player.Instance) / args.SData.MissileSpeed) - 500);
+                }
+            }
+
+            if (args.Target != null && type.Equals(SpellDataTargetType.Unit))
+            {
+                if (!args.Target.IsMe ||
+                    (args.Target.Name.Equals("Barrel") && args.Target.Distance(Player.Instance) > 200 &&
+                     args.Target.Distance(Player.Instance) < 400))
+                {
+                    return;
+                }
+
+                if (unit.ChampionName.Equals("Nautilus") ||
+                    (unit.ChampionName.Equals("Caitlyn") && args.Slot.Equals(SpellSlot.R)))
+                {
+                    var d = unit.Distance(Player.Instance);
+                    var travelTime = d / args.SData.MissileSpeed;
+                    var delay = travelTime * 1000 - Spells.E.CastDelay + 1150;
+                    Console.WriteLine("TT: " + travelTime + " " + delay);
+                    Core.DelayAction(() => Spells.E.Cast(), (int)delay);
+                    return;
+                }
+                Spells.E.Cast();
+            }
+
+            if (type.Equals(SpellDataTargetType.Unit))
+            {
+                if (unit.ChampionName.Equals("Bard") && args.End.Distance(Player.Instance) < 300)
+                {
+                    Core.DelayAction(() => Spells.E.Cast(), 400 + (int)(unit.Distance(Player.Instance) / 7f));
+                }
+                else if (unit.ChampionName.Equals("Riven") && args.End.Distance(Player.Instance) < 260)
+                {
+                    Spells.E.Cast();
+                }
+                else
+                {
+                    Spells.E.Cast();
+                }
+            }
+            else if (type.Equals(SpellDataTargetType.LocationAoe) &&
+                     args.End.Distance(Player.Instance) < args.SData.CastRadius)
+            {
+                // annie moving tibbers
+                if (unit.ChampionName.Equals("Annie") && args.Slot.Equals(SpellSlot.R))
+                {
+                    return;
+                }
+                Spells.E.Cast();
+            }
+            else if (type.Equals(SpellDataTargetType.Cone) &&
+                     args.End.Distance(Player.Instance) < args.SData.CastRadius)
+            {
+                Spells.E.Cast();
+            }
+            else if (type.Equals(SpellDataTargetType.SelfAoe) || type.Equals(SpellDataTargetType.Self))
+            {
+                var d = args.End.Distance(Player.Instance.ServerPosition);
+                var p = args.SData.CastRadius > 5000 ? args.SData.CastRange : args.SData.CastRadius;
+                if (d < p)
+                    Spells.E.Cast();
+            }
+        }
     }
 }
