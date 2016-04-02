@@ -1,1 +1,2 @@
 c:\users\uzumaki boruto\documents\visual studio 2012\Projects\UBQSS\UBQSS\bin\Debug\UBQSS.exe.config
+C:\Users\Uzumaki Boruto\Desktop\EloBuddy-Addons\UBQSS\bin\Debug\UBQSS.exe.config

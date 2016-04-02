@@ -18,11 +18,11 @@ namespace UBKennen
         //Combo
         public static void Combo()
         {          
+            var target = TargetSelector.GetTarget(Spells.Q.Range, DamageType.Magical);
             if (Config.ComboMenu["useQCombo"].Cast<CheckBox>().CurrentValue
                 && Spells.Q.IsReady()
                 && !Player.Instance.IsDashing())
-            {
-                var target = TargetSelector.GetTarget(Spells.Q.Range, DamageType.Magical);
+            {              
                 if (target != null && target.IsValidTarget())
                 {
                     Spells.Q.Cast(target);
@@ -40,7 +40,7 @@ namespace UBKennen
                 }
             }
             if (Config.ComboMenu["useECombo"].Cast<CheckBox>().CurrentValue
-                 && Spells.E.IsReady())
+                 && Spells.E.IsReady() && target.CountEnemiesInRange((Player.Instance.MoveSpeed) *2 ) > 0 )
             {
                 Spells.E.Cast();
             }
