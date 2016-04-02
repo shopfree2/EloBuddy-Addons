@@ -175,7 +175,11 @@ namespace UBSivir
                 {
                     new Block(SpellSlot.Q) { Name = "Third Q", BuffName = "RivenTriCleave", IsSelfBuff = true },
                     w, 
-                    r
+                    new Block("rivenizunablade", "Second R")
+                    {
+                        BuffName = "RivenFengShuiEngine",
+                        IsSelfBuff = true,
+                    },
                 });
             BlockedSpells.Add("Ryze", new List<Block> { w, e });
             BlockedSpells.Add("Sejuani", new List<Block> { r });
