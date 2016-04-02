@@ -241,7 +241,7 @@ namespace UBSivir
                 });
             BlockedSpells.Add(
                 "Viktor",
-                new List<Block> { q, new Block("viktorqbuff", "Empowered Q", true) });
+                new List<Block> { q, r });
             BlockedSpells.Add("Vladimir", new List<Block> { q });
             BlockedSpells.Add(
                 "Volibear", new List<Block> { new Block("VolibearQAttack", "Empowered Q", true), w });

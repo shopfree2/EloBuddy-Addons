@@ -108,7 +108,10 @@ namespace UBKennen
             }
 
             var slot4 = Player.Instance.InventoryItems.FirstOrDefault(x => x.Id == item.Id);
-            if (slot4 != null && Spells.R.IsReady() && Player.GetSpell(slot4.SpellSlot).IsReady)
+            if (slot4 != null 
+                && Spells.R.IsReady()
+                && target.CountEnemiesInRange(450) >= Config.MiscMenu["item.4mng"].Cast<Slider>().CurrentValue 
+                && Player.GetSpell(slot4.SpellSlot).IsReady)
             {
                 Spells.R.Cast();
                 Player.CastSpell(slot4.SpellSlot);

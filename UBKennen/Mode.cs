@@ -49,7 +49,7 @@ namespace UBKennen
                       && Spells.R.IsReady())
             {
                 var rtarget = TargetSelector.GetTarget(Spells.R.Range, DamageType.Magical);
-                if (rtarget.CountEnemiesInRange(500) >= Config.ComboMenu["RhitCombo"].Cast<Slider>().CurrentValue)
+                if (rtarget.CountEnemiesInRange(450) >= Config.ComboMenu["RhitCombo"].Cast<Slider>().CurrentValue)
                 {
                     Spells.R.Cast();
                 }
