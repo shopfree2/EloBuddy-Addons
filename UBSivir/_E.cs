@@ -117,7 +117,7 @@ namespace UBSivir
                 new List<Block> { new Block("mordekaiserqattack2", "Empowered Q", true), e, r });
             BlockedSpells.Add("Nami", new List<Block> { w, r });
             BlockedSpells.Add(
-                "Nasus", new List<Block> { new Block("NasusQAttack", "Empowered Q", true) });
+                "Nasus", new List<Block> { new Block("NasusQAttack", "Empowered Q", true), w });
             BlockedSpells.Add(
                 "Nautilus",
                 new List<Block> { new Block("NautilusRavageStrikeAttack", "Empowered", true), e, r });
@@ -290,7 +290,7 @@ namespace UBSivir
         static void OnUpdate(EventArgs args)
         {           
             if (Config.ShieldMenu["blockSpellsE"].Cast<CheckBox>().CurrentValue == true || Spells.E.IsReady())
-            foreach (var skillshot in Evade.Evade.GetSkillshotsAboutToHit(Player.Instance, (int)(Game.Ping /2f)))
+            foreach (var skillshot in Evade.Evade.GetSkillshotsAboutToHit(Player.Instance, (int)(500 + Game.Ping /2f)))
             {           
                 var enemy = skillshot.Unit as AIHeroClient;
 
