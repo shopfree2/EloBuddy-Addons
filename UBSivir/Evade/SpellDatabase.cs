@@ -3796,7 +3796,7 @@ namespace UBSivir.Evade
                 new SpellData
                 {
                     ChampionName = "Yasuo",
-                    SpellName = "yasuoq3w",
+                    SpellName = "yasuoq3",
                     Slot = SpellSlot.Q,
                     Type = SkillShotType.SkillshotMissileLine,
                     Delay = 500,

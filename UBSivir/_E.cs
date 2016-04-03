@@ -190,18 +190,19 @@ namespace UBSivir
             BlockedSpells.Add("Sion", new List<Block> { q, r });
             BlockedSpells.Add("Shen", new List<Block> { e });
             BlockedSpells.Add("Skarner", new List<Block> { r });
-            BlockedSpells.Add("Sona", new List<Block> { r });
+            BlockedSpells.Add("Sona", new List<Block> { q, r });
             BlockedSpells.Add("Syndra", new List<Block> { r });
             BlockedSpells.Add("Swain", new List<Block> { q, e });
             BlockedSpells.Add(
                 "Talon",
                 new List<Block>
                 {
-                    new Block("TalonNoxianDiplomacyAttack", "Empowered Q") { IsAutoAttack = true },
+                    new Block("TalonNoxianDiplomacyAttack", "Empowered Q", true),
                     w,
                     e
                 });
             BlockedSpells.Add("Taric", new List<Block> { e });
+            BlockedSpells.Add("Tahm Kench", new List<Block> { w });
             BlockedSpells.Add("Teemo", new List<Block> { q });
             BlockedSpells.Add("Thresh", new List<Block> { e });
             BlockedSpells.Add("Tristana", new List<Block> { e, r });
@@ -290,7 +291,7 @@ namespace UBSivir
         static void OnUpdate(EventArgs args)
         {           
             if (Config.ShieldMenu["blockSpellsE"].Cast<CheckBox>().CurrentValue == true || Spells.E.IsReady())
-            foreach (var skillshot in Evade.Evade.GetSkillshotsAboutToHit(Player.Instance, (int)(500 + Game.Ping /2f)))
+            foreach (var skillshot in Evade.Evade.GetSkillshotsAboutToHit(Player.Instance, (int)(Spells.E.CastDelay + Game.Ping /2f)))
             {           
                 var enemy = skillshot.Unit as AIHeroClient;
 
