@@ -1,2 +1,0 @@
-D:\Desktop\Elobuddy\JinxBuddy.exe.config
-D:\Download\JinxBuddy\JinxBuddy\obj\Debug\JinxBuddy.csprojResolveAssemblyReference.cache

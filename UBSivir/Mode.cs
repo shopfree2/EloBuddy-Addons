@@ -26,7 +26,7 @@ namespace UBSivir
             if (Config.ComboMenu["useRCombo"].Cast<CheckBox>().CurrentValue
                       && Spells.R.IsReady())
             {               
-                if (ObjectManager.Player.Position.CountAlliesInRange(1000) >= (Config.ComboMenu["RHitCombo"].Cast<Slider>().CurrentValue +1)
+                if (ObjectManager.Player.Position.CountAlliesInRange(1000) >= (Config.ComboMenu["RHitCombo"].Cast<Slider>().CurrentValue)
                   && ObjectManager.Player.Position.CountEnemiesInRange(2000) >= Config.ComboMenu["RHitCombo"].Cast<Slider>().CurrentValue)
                 {
                     Spells.R.Cast();
@@ -39,6 +39,7 @@ namespace UBSivir
             if (Config.HarassMenu["useQHr"].Cast<CheckBox>().CurrentValue
                 && Spells.Q.IsReady()
                 && !Player.Instance.IsDashing()
+                && Player.Instance.ManaPercent >= Config.HarassMenu["HrManage"].Cast<Slider>().CurrentValue
                 && Config.HarassMenu["useQHr2"].Cast<CheckBox>().CurrentValue == false)
             {
                 var target = TargetSelector.GetTarget(Spells.Q.Range, DamageType.Physical);
@@ -50,6 +51,7 @@ namespace UBSivir
             else if (Config.HarassMenu["useQHr"].Cast<CheckBox>().CurrentValue
                 && Spells.QLine.IsReady()
                 && !Player.Instance.IsDashing()
+                && Player.Instance.ManaPercent >= Config.HarassMenu["HrManage"].Cast<Slider>().CurrentValue
                 && Config.HarassMenu["useQhr2"].Cast<CheckBox>().CurrentValue == true)
             {
                 var target = TargetSelector.GetTarget(Spells.QLine.Range, DamageType.Physical);
@@ -121,27 +123,24 @@ namespace UBSivir
         }
 
         public static void Lasthit()
-        {
-            if (Config.LasthitMenu["useQLh"].Cast<CheckBox>().CurrentValue
-              && Spells.Q.IsReady()) return;
-            {
-                var qminion = (Obj_AI_Minion)MinionQLh(GameObjectType.obj_AI_Minion, AttackSpell.Q);
-                if (qminion != null && Player.Instance.ManaPercent >= Config.LasthitMenu["LhManager"].Cast<Slider>().CurrentValue)
-                {
-                    Spells.Q.Cast(qminion.ServerPosition);
-                }
-
-                if (Config.LasthitMenu["useWLh"].Cast<CheckBox>().CurrentValue
-                 && Spells.W.IsReady()) return;
-                {
-                    var wminion = (Obj_AI_Minion)MinionWlh(GameObjectType.obj_AI_Minion, AttackSpell.W);
-                    if (wminion != null && Player.Instance.ManaPercent >= Config.LasthitMenu["LhManager"].Cast<Slider>().CurrentValue)
-                    {
-                        Spells.W.Cast();                        
-                    }
-                }
-            }
-        }
+        {         
+               var qminion = (Obj_AI_Minion)MinionQLh(GameObjectType.obj_AI_Minion, AttackSpell.Q);
+               if (qminion != null 
+                   && Player.Instance.ManaPercent >= Config.LasthitMenu["LhManager"].Cast<Slider>().CurrentValue
+                   && Config.LasthitMenu["useQLh"].Cast<CheckBox>().CurrentValue)
+               {
+                   Spells.Q.Cast(qminion.ServerPosition);
+               }
+               if (Config.LasthitMenu["useWLh"].Cast<CheckBox>().CurrentValue
+               && Spells.W.IsReady()) return;
+               {
+                   var wminion = (Obj_AI_Minion)MinionWlh(GameObjectType.obj_AI_Minion, AttackSpell.W);
+                   if (wminion != null && Player.Instance.ManaPercent >= Config.LasthitMenu["LhManager"].Cast<Slider>().CurrentValue)
+                   {
+                       Spells.W.Cast();                        
+                   }
+               }
+          }       
         //JungleClear
         public static void JungleClear()
         {
@@ -150,7 +149,8 @@ namespace UBSivir
             if (Orbwalker.IsAutoAttacking) return;
             Orbwalker.ForcedTarget = null;
             if (Config.JungleClear["useQJc"].Cast<CheckBox>().CurrentValue
-                && Player.Instance.ManaPercent > Config.JungleClear["JcManager"].Cast<Slider>().CurrentValue
+                && monster.Health > (ObjectManager.Player.GetAutoAttackDamage(Sivir) *2 )
+                && Player.Instance.ManaPercent >= Config.JungleClear["JcManager"].Cast<Slider>().CurrentValue
                 && Spells.Q.IsReady())
             {
                 Spells.Q.Cast(monster);
@@ -161,7 +161,7 @@ namespace UBSivir
             if (Orbwalker.IsAutoAttacking) return;
             Orbwalker.ForcedTarget = null;
             if (Config.JungleClear["useWJc"].Cast<CheckBox>().CurrentValue
-                && Player.Instance.ManaPercent > Config.JungleClear["JcManager"].Cast<Slider>().CurrentValue
+                && Player.Instance.ManaPercent >= Config.JungleClear["JcManager"].Cast<Slider>().CurrentValue
                 && Spells.W.IsReady()
                 && wmonster.CountEnemiesInRange(600) >= Config.JungleClear["WhitJc"].Cast<Slider>().CurrentValue)
             {             
