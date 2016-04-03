@@ -42,7 +42,7 @@ namespace UBSivir
             BlockedSpells.Add("Blitzcrank", new List<Block> { new Block("PowerFistAttack", "Power Fist", true), r });
             BlockedSpells.Add("Brand", new List<Block> { e, r });
             BlockedSpells.Add("Braum", new List<Block> { new Block("BraumBasicAttackPassiveOverride", "Stun", true) });
-            BlockedSpells.Add("Caitlyn", new List<Block> { new Block("CaitlynHeadshotMissile", "Headshot", true), r });
+            BlockedSpells.Add("Caitlyn", new List<Block> { r });
             BlockedSpells.Add("Cassiopeia", new List<Block> { r });
             BlockedSpells.Add("Chogath", new List<Block> { r });
             BlockedSpells.Add("Darius", new List<Block> { q, new Block("DariusNoxianTacticsONHAttack", "Empowered W", true), e, r });
@@ -84,7 +84,7 @@ namespace UBSivir
                 });
             BlockedSpells.Add("Jhin", new List<Block> { q, new Block("JhinPassiveAttack", "4th", true) });
             BlockedSpells.Add("Kassadin", new List<Block> { q, new Block("KassadinBasicAttack3", "Empowered W", true) });
-            BlockedSpells.Add("Katarina", new List<Block> { e });
+            BlockedSpells.Add("Katarina", new List<Block> { q, e });
             BlockedSpells.Add("Kayle", new List<Block> { q });
             BlockedSpells.Add("Kennen", new List<Block> { new Block("KennenMegaProc", "Empowered", true), w });
             BlockedSpells.Add("Khazix", new List<Block> { q });
@@ -106,7 +106,7 @@ namespace UBSivir
                 "Leona", new List<Block> { new Block("LeonaShieldOfDaybreakAttack", "Stun Q", true) });
             BlockedSpells.Add("Lissandra", new List<Block> { new Block(N48) { Name = "R" } });
             BlockedSpells.Add("Lulu", new List<Block> { w });
-            BlockedSpells.Add("Malphite", new List<Block> { q, e, r });
+            BlockedSpells.Add("Malphite", new List<Block> { q, r });
             BlockedSpells.Add("Malzahar", new List<Block> { e, r });
             BlockedSpells.Add("Maokai", new List<Block> { w });
             BlockedSpells.Add(
