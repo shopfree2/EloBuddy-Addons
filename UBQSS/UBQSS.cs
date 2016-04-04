@@ -42,7 +42,9 @@ namespace UBQSS
         private static bool FizzUlt { get { return Spells["FizzUlt"].Cast<CheckBox>().CurrentValue; } }
         private static bool MordUlt { get { return Spells["MordUlt"].Cast<CheckBox>().CurrentValue; } }
         private static bool FioraUlt { get { return Spells["FioraUlt"].Cast<CheckBox>().CurrentValue; } }
-        //private static bool Damage { get { return Spells["Damage"].Cast<CheckBox>().CurrentValue; } }
+        private static bool Damage { get { return Spells["Damage"].Cast<CheckBox>().CurrentValue; } }
+        private static bool TFUlt { get { return Spells["TFsight"].Cast<CheckBox>().CurrentValue; } }
+        private static bool NocUlt { get { return Spells["Nocturnesight"].Cast<CheckBox>().CurrentValue; } }
 
         public static int MinDurCC { get { return CC["CCDelay"].Cast<Slider>().CurrentValue; } }
         public static int MinDurSpells { get { return Spells["SpellsDelay"].Cast<Slider>().CurrentValue; } }
@@ -65,7 +67,9 @@ namespace UBQSS
             var Fizz = EntityManager.Heroes.Enemies.Any(x => x.ChampionName == "Fizz");
             var Mordekaiser = EntityManager.Heroes.Enemies.Any(x => x.ChampionName == "Mordekaiser");
             var Tristana = EntityManager.Heroes.Enemies.Any(x => x.ChampionName == "Tristana");
-            var Tahmkench = EntityManager.Heroes.Enemies.Any(x => x.ChampionName == "Tahmkench");
+            var Tahmkench = EntityManager.Heroes.Enemies.Any(x => x.ChampionName == "Tahm Kench");
+            var TF = EntityManager.Heroes.Enemies.Any(x => x.ChampionName == "Twisted Fate");
+            var Nocturne = EntityManager.Heroes.Enemies.Any(x => x.ChampionName == "Nocturne");
             
 
             // Menu
@@ -101,6 +105,8 @@ namespace UBQSS
                 Spells.AddGroupLabel("Spells");
                 Spells.Add("Ignite", new CheckBox("Ignite"));
                 Spells.Add("Exhaust", new CheckBox("Exhaust"));
+                Spells.AddSeparator();
+                Spells.AddLabel("Champion's Abilities");
                 if (Tristana)
                 {
                     Spells.Add("TristanaE", new CheckBox("Tristana E", false));
@@ -108,6 +114,14 @@ namespace UBQSS
                 if (Tahmkench)
                 {
                     Spells.Add("TahmkenchW", new CheckBox("Enemy Tahm Kench W", false));
+                }
+                if (TF)
+                {
+                    Spells.Add("TFsight", new CheckBox("Remove your sight from Twisted Fate R", false));
+                }
+                if (Nocturne)
+                {
+                    Spells.Add("Nocturnesight", new CheckBox("Remove the limit sight when Nocturne R", false));
                 }
                 if (Zed)
                 {
@@ -130,7 +144,7 @@ namespace UBQSS
                     Spells.Add("FioraUlt", new CheckBox("Fiora Ultimate"));
                 }
 
-                //Spells.Add("Damage", new CheckBox("Damage from Death Dancer", false));
+                Spells.Add("Damage", new CheckBox("Remove the bleed damage if it can kill your champion"));
                 Spells.AddSeparator();
                 Spells.Add("SpellsDelay", new Slider("Delay for spells", 800, 0, 2000));
 
@@ -260,6 +274,14 @@ namespace UBQSS
 
 
             //Spell
+            if (Name == "twistedfatedestiny" && TFUlt)
+            {
+                SpellsQSS();
+            }
+            if (Name == "nocturneparanoia" && NocUlt)
+            {
+                SpellsQSS();
+            }
             if (Name == "zedrdeathmark" && ZedUlt)
             {
                 SpellsQSS();
@@ -296,7 +318,18 @@ namespace UBQSS
             {
                 SpellsQSS();
             }
+
+            //Bleeding Damage
+            if (Type == BuffType.Damage && Damage && Player.Instance.HealthPercent <= 8)
+            {
+                UseQSS();
+            }
+            if (Type == BuffType.Poison && Damage && Player.Instance.HealthPercent <= 8)
+            {
+                UseQSS();
+            }
         }
+        
         private static void UseQSS()
         {
             if (!Check) return;
