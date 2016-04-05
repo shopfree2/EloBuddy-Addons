@@ -36,6 +36,7 @@ namespace UBSivir
             BlockedSpells.Add("Alistar", new List<Block> { q, w });
             BlockedSpells.Add("Anivia", new List<Block> { e });
             BlockedSpells.Add("Annie", new List<Block> { q, w, r });
+            BlockedSpells.Add("Amumu", new List<Block> { r });
             BlockedSpells.Add("Ashe", new List<Block> { w });
             BlockedSpells.Add("Azir", new List<Block> { r });
             BlockedSpells.Add("Bard", new List<Block> { r });
