@@ -24,7 +24,6 @@ namespace UBSivir
             QLine = new Spell.Skillshot(SpellSlot.Q, 1250, SkillShotType.Linear, 250, 1350, 90);
             W = new Spell.Active(SpellSlot.W, 750);   
             E = new Spell.Active(SpellSlot.E);
-            E.CastDelay = 500;
             R = new Spell.Active(SpellSlot.R, 1000);
             var slot = ObjectManager.Player.GetSpellSlotFromName("summonerheal");
             if (slot != SpellSlot.Unknown)
